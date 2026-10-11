@@ -1,8 +1,12 @@
 <!--meta {"title": "Arzware | Business development and digital solutions", "description": "Bring us any business problem. Arzware researches your business and market, diagnoses what is slowing you down, and builds or brings in the right solution: websites, WhatsApp automation, CRM, AI and more.", "nav": "home"} -->
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <h1>Bring us any business problem. We start with research.</h1>
+<section class="hero" aria-labelledby="hero-title">
+  <canvas class="hero-field" id="field" aria-hidden="true"></canvas>
+  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1 id="hero-title">Bring us any business
+        <span class="rotator" aria-hidden="true"><span class="on">problem.</span><span>idea.</span><span>bottleneck.</span><span>question.</span></span><span class="sr-only">problem.</span>
+        <br>We start with research.</h1>
       <p class="lede">Arzware is a business development partner for growing companies in the Gulf and the region. We study your business and your market, find what is really holding you back, then build the solution or bring in the right people to do it.</p>
       <div class="actions">
         <a class="btn btn-primary" href="https://cal.com/arzware">Book a free business call</a>
@@ -11,130 +15,159 @@
       <p class="hero-note">Free conversation. No obligation. Arabic or English.</p>
     </div>
 
-    <aside class="brief" aria-labelledby="brief-title">
-      <div class="brief-head">
-        <h2 id="brief-title">What a first diagnosis looks at</h2>
-        <span class="tag">Sample checklist</span>
+    <div class="float-zone" aria-hidden="true">
+      <div class="chip chip-map bob" data-depth="18">
+        <div class="chip-k"><span class="dot live"></span>Working across the region</div>
+        <svg viewBox="0 0 160 100">
+          <defs><linearGradient id="miniArc" x1="0" x2="1"><stop offset="0" stop-color="#ffb23f"/><stop offset="1" stop-color="#ff6f91"/></linearGradient></defs>
+          <path d="M14 14 Q60 10 92 56" fill="none" stroke="url(#miniArc)" stroke-width="1.6"/>
+          <path d="M14 14 Q90 6 140 62" fill="none" stroke="url(#miniArc)" stroke-width="1.6"/>
+          <path d="M14 14 Q40 40 46 84" fill="none" stroke="url(#miniArc)" stroke-width="1.6"/>
+          <circle cx="14" cy="14" r="4" fill="#ffb23f"/><circle cx="92" cy="56" r="3" fill="#f4efe6"/><circle cx="140" cy="62" r="3" fill="#f4efe6"/><circle cx="46" cy="84" r="3" fill="#f4efe6"/>
+        </svg>
       </div>
-      <ul class="checklist">
-        <li><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><strong>How customers find you</strong><span>Search, maps, social media and word of mouth</span></div></li>
-        <li><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><strong>How you answer them</strong><span>Calls, WhatsApp, email, and how long people wait</span></div></li>
-        <li><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><strong>Where work repeats</strong><span>Orders, bookings, reports and follow-ups done by hand</span></div></li>
-        <li><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><strong>What competitors do better</strong><span>The businesses near you, compared point by point</span></div></li>
-        <li><svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg><div><strong>What you already pay for</strong><span>Tools and subscriptions you could use better, or drop</span></div></li>
-      </ul>
-      <p class="brief-foot">You get a plain list of what to fix first, and why.</p>
-    </aside>
+
+      <div class="chip chip-chat bob" data-depth="30">
+        <div class="chip-k"><span class="dot live"></span>WhatsApp assistant</div>
+        <div class="bubble in">Hi, can I book a table for four tonight?</div>
+        <div class="bubble out" id="chat-reply">Of course. 8:30 pm is free. Shall I confirm it?</div>
+      </div>
+
+      <div class="chip chip-scan bob" data-depth="22">
+        <div class="chip-k"><span class="dot live"></span>Diagnosis in progress</div>
+        <div class="ring">
+          <svg viewBox="0 0 58 58"><defs><linearGradient id="ringGrad" x1="0" x2="1"><stop offset="0" stop-color="#ffb23f"/><stop offset="1" stop-color="#ff6f91"/></linearGradient></defs><circle class="track" cx="29" cy="29" r="24"/><circle class="bar" id="ring-bar" cx="29" cy="29" r="24"/></svg>
+          <div class="scan-step" id="scan-step">Reading your customer reviews</div>
+        </div>
+      </div>
+
+      <div class="chip chip-flow bob" data-depth="14">
+        <div class="chip-k"><span class="dot live"></span>New lead, followed up</div>
+        <div class="flow"><div>New<span class="lead"></span></div><div>Contacted</div><div>Booked</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>Business research</span><span>WhatsApp automation</span><span>Websites</span><span>CRM and follow-up</span><span>AI setup</span><span>POS and payments</span><span>Security check-ups</span><span>Competitor analysis</span>
+    <span>Business research</span><span>WhatsApp automation</span><span>Websites</span><span>CRM and follow-up</span><span>AI setup</span><span>POS and payments</span><span>Security check-ups</span><span>Competitor analysis</span>
+  </div>
+</div>
+
 <section class="section" aria-labelledby="method-title">
   <div class="wrap">
-    <h2 id="method-title">We research. We diagnose. We build. We connect.</h2>
-    <ol class="method">
-      <li><span class="n">1</span><h3>Research</h3><p>We learn how your business works and study your market and competitors before we suggest anything.</p></li>
-      <li><span class="n">2</span><h3>Diagnose</h3><p>We show you what is slowing you down, with evidence, including things you may not have asked about.</p></li>
-      <li><span class="n">3</span><h3>Build</h3><p>We set up or build what fits: websites, automation, AI, systems your team will actually use.</p></li>
-      <li><span class="n">4</span><h3>Connect</h3><p>If something is outside what we do, we bring in a trusted partner and stay with you as your point of contact.</p></li>
-    </ol>
+    <h2 id="method-title" class="reveal" style="margin-bottom:2.5rem;max-width:22ch">How every project starts, and how it ends.</h2>
+    <div class="method-wrap">
+      <ol class="method-words" id="method-words">
+        <li class="lit" data-n="1" data-t="Research" data-d="We learn how your business works and study your market and competitors before we suggest anything.">Research.</li>
+        <li data-n="2" data-t="Diagnose" data-d="We show you what is slowing you down, with evidence, including things you may not have asked about.">Diagnose.</li>
+        <li data-n="3" data-t="Build" data-d="We set up or build what fits: websites, automation, AI and systems your team will actually use.">Build.</li>
+        <li data-n="4" data-t="Connect" data-d="If something is outside what we do, we bring in a trusted partner and stay with you as your point of contact.">Connect.</li>
+      </ol>
+      <div class="method-detail">
+        <div class="card" aria-live="polite">
+          <span class="n" id="m-n">Step 1 of 4</span>
+          <h3 id="m-t">Research</h3>
+          <p id="m-d">We learn how your business works and study your market and competitors before we suggest anything.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section" aria-labelledby="anything-title">
   <div class="wrap split">
+    <h2 id="anything-title" class="reveal">One call for whatever your business needs next.</h2>
     <div class="stack">
-      <h2 id="anything-title">One call for whatever your business needs next.</h2>
-    </div>
-    <div class="stack">
-      <p class="lede">You don't need to know which technology you need. Tell us what is happening in your business: customers are slipping away, your team is buried in messages, a branch is opening, a competitor is moving faster.</p>
-      <p class="muted">We do the homework, explain your options in plain language, and recommend the smallest change that makes a real difference. Sometimes that is a new system. Sometimes it is fixing how you use the tools you already have.</p>
-      <p><a href="/how-we-work/">See how we work</a></p>
+      <p class="lede reveal d1">You don't need to know which technology you need. Tell us what is happening: customers are slipping away, your team is buried in messages, a branch is opening, a competitor is moving faster.</p>
+      <p class="muted reveal d2">We do the homework, explain your options in plain language, and recommend the smallest change that makes a real difference. Sometimes that is a new system. Sometimes it is fixing how you use the tools you already have.</p>
+      <p class="reveal d3"><a href="/how-we-work/">See how we work</a></p>
     </div>
   </div>
 </section>
 
 <section class="section" aria-labelledby="services-title">
   <div class="wrap">
-    <h2 id="services-title">What we help with</h2>
-    <div class="groups">
-      <div class="group">
+    <h2 id="services-title" class="reveal">What we help with</h2>
+    <div class="cards">
+      <article class="card-x reveal d1">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
         <h3>Get found and sell</h3>
-        <ul>
-          <li>Business websites</li>
-          <li>Restaurant and café packages</li>
-          <li>WhatsApp ordering and booking</li>
-          <li>Google Business Profile setup</li>
-        </ul>
+        <ul><li>Business websites</li><li>Restaurant and café packages</li><li>WhatsApp ordering and booking</li><li>Google Business Profile setup</li></ul>
         <p class="muted">For businesses that customers struggle to find, or find and then lose.</p>
-      </div>
-      <div class="group">
+      </article>
+      <article class="card-x reveal d2">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></div>
         <h3>Run smoothly</h3>
-        <ul>
-          <li>CRM and follow-up systems</li>
-          <li>Google Workspace and AI setup</li>
-          <li>POS setup and payments</li>
-          <li>Automation of repeated work</li>
-        </ul>
+        <ul><li>CRM and follow-up systems</li><li>Google Workspace and AI setup</li><li>POS setup and payments</li><li>Automation of repeated work</li></ul>
         <p class="muted">For teams spending their day on messages, spreadsheets and copy-paste.</p>
-      </div>
-      <div class="group">
+      </article>
+      <article class="card-x reveal d3">
+        <div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M8 11h6M11 8v6"/></svg></div>
         <h3>Decide with evidence</h3>
-        <ul>
-          <li>Business diagnosis</li>
-          <li>Market and competitor research</li>
-          <li>Security check-ups</li>
-          <li>Monthly care and improvement</li>
-        </ul>
+        <ul><li>Business diagnosis</li><li>Market and competitor research</li><li>Security check-ups</li><li>Monthly care and improvement</li></ul>
         <p class="muted">For owners who want to know where to invest before they spend.</p>
-      </div>
+      </article>
     </div>
-    <div class="actions" style="margin-top:2rem">
-      <a class="btn btn-ghost" href="/services/">All services</a>
-    </div>
+    <div class="actions reveal" style="margin-top:2rem"><a class="btn btn-ghost" href="/services/">All services</a></div>
   </div>
 </section>
 
 <section class="section" aria-labelledby="region-title">
   <div class="wrap split">
     <div class="stack">
-      <h2 id="region-title">Built for businesses across the Gulf.</h2>
+      <h2 id="region-title" class="reveal">Built for businesses across the Gulf.</h2>
+      <p class="lede reveal d1">We work with companies in the UAE, Saudi Arabia and across the region, remotely and on your schedule, in Arabic or English.</p>
+      <p class="muted reveal d2">Our team is based in Beirut. We understand how business works here, from WhatsApp-first customers to bilingual teams.</p>
     </div>
-    <div class="stack">
-      <p class="lede">We work with companies in the UAE, Saudi Arabia and across the region, remotely and on your schedule, in Arabic or English.</p>
-      <p class="muted">Our team is based in Beirut. We understand how business works in the region, from WhatsApp-first customers to bilingual teams.</p>
-      <div class="places" aria-label="Where we work">
-        <span class="place">Dubai</span>
-        <span class="place">Abu Dhabi</span>
-        <span class="place">Riyadh</span>
-        <span class="place">Jeddah</span>
-        <span class="place">Doha</span>
-        <span class="place">Kuwait City</span>
-        <span class="place">Manama</span>
-        <span class="place">Muscat</span>
-        <span class="place home">Beirut</span>
-      </div>
+    <div class="map reveal d1" id="map" role="img" aria-label="Map of the cities Arzware works with: Dubai, Abu Dhabi, Riyadh, Jeddah, Doha, Kuwait City, Manama and Muscat, connected to Beirut.">
+      <svg viewBox="0 0 560 330" aria-hidden="true">
+        <defs><linearGradient id="arcGrad" x1="0" x2="1"><stop offset="0" stop-color="#ffb23f"/><stop offset="1" stop-color="#ff6f91"/></linearGradient></defs>
+        <g>
+          <path class="arc" d="M50 42 Q160 40 260 133"/>
+          <path class="arc" d="M50 42 Q150 110 274 226" style="animation-delay:.15s"/>
+          <path class="arc" d="M50 42 Q70 170 124 290" style="animation-delay:.3s"/>
+          <path class="arc" d="M50 42 Q230 60 352 196" style="animation-delay:.45s"/>
+          <path class="arc" d="M50 42 Q250 70 370 214" style="animation-delay:.6s"/>
+          <path class="arc" d="M50 42 Q300 60 446 216" style="animation-delay:.75s"/>
+          <path class="arc" d="M50 42 Q290 90 428 230" style="animation-delay:.9s"/>
+          <path class="arc" d="M50 42 Q340 70 508 248" style="animation-delay:1.05s"/>
+        </g>
+        <circle class="pulse" cx="50" cy="42" r="6"/>
+        <circle class="home" cx="50" cy="42" r="6"/>
+        <text class="big" x="64" y="38">Beirut</text>
+        <circle class="city" cx="260" cy="133" r="4"/><text x="270" y="130">Kuwait City</text>
+        <circle class="city" cx="274" cy="226" r="5"/><text class="big" x="230" y="250">Riyadh</text>
+        <circle class="city" cx="124" cy="290" r="4"/><text x="136" y="294">Jeddah</text>
+        <circle class="city" cx="352" cy="196" r="4"/><text x="318" y="182">Manama</text>
+        <circle class="city" cx="370" cy="214" r="4"/><text x="346" y="234">Doha</text>
+        <circle class="city" cx="446" cy="216" r="5"/><text class="big" x="456" y="206">Dubai</text>
+        <circle class="city" cx="428" cy="230" r="4"/><text x="400" y="254">Abu Dhabi</text>
+        <circle class="city" cx="508" cy="248" r="4"/><text x="496" y="272">Muscat</text>
+      </svg>
     </div>
   </div>
 </section>
 
 <section class="section" aria-labelledby="dfa-title">
   <div class="wrap">
-    <div class="callout">
+    <div class="band reveal">
       <div class="stack">
         <h2 id="dfa-title">Digital First Aid</h2>
-        <p class="muted">Our community programme. We give small businesses that are struggling a free, practical fix: getting found online, taking orders on WhatsApp, accepting card payments, and basic security.</p>
+        <p>Our community programme. Small businesses that are struggling get a free, practical fix: getting found online, taking orders on WhatsApp, accepting card payments, and basic security.</p>
+        <div class="actions"><a class="btn" href="/digital-first-aid/">About the programme</a></div>
       </div>
-      <a class="btn btn-ghost" href="/digital-first-aid/">About the programme</a>
+      <svg class="ecg" viewBox="0 0 400 120" aria-hidden="true"><path d="M0 70 H110 L130 70 L145 30 L162 105 L180 15 L198 90 L212 70 H260 L272 58 L284 70 H400"/></svg>
     </div>
   </div>
 </section>
 
 <section class="section" aria-labelledby="research-title">
   <div class="wrap split">
-    <h2 id="research-title">We publish what we learn.</h2>
-    <div class="stack">
-      <p class="lede">Research is how we work, so we will share it. Soon we will start publishing our own analysis of technology and business in the region.</p>
-    </div>
+    <h2 id="research-title" class="reveal">We publish what we learn.</h2>
+    <p class="lede reveal d1">Research is how we work, so we will share it. Soon we will start publishing our own analysis of technology and business in the region.</p>
   </div>
 </section>
 
