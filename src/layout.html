@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta name="robots" content="{{robots}}">
+<meta name="theme-color" content="#18212b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Arzware">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="https://arzware.net/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{title}}">
+<meta name="twitter:description" content="{{description}}">
+<meta name="twitter:image" content="https://arzware.net/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Schibsted+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/styles.css?v={{version}}">
+<script type="application/ld+json">{{jsonld}}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+{{header}}
+<main id="main">
+{{content}}
+</main>
+{{footer}}
+<script src="/assets/site.js?v={{version}}" defer></script>
+</body>
+</html>
