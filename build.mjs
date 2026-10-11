@@ -99,6 +99,7 @@ function emit(url, meta, body, pageJsonld = []) {
     .replace('{{footer}}', () => partial('footer'))
     .replace('{{content}}', () => rhythm(cards(expand(body))).trim())
     .replace('{{pagejsonld}}', () => extra)
+    .replace('{{pagescripts}}', () => (meta.scripts || []).map((src) => `<script src="${src}?v=${VERSION}" defer></script>`).join('\n'))
     .replace('{{jsonld}}', () => JSON.stringify(org))
     .replaceAll('{{logo}}', logo)
     .replaceAll('{{wa}}', WA.replace(/'/g, '%27'))
