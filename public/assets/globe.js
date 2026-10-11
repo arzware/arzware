@@ -82,14 +82,19 @@
     ctx.fillStyle = s; ctx.beginPath(); ctx.arc(CX, CY, R, 0, 7); ctx.fill();
     ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = dpr; ctx.stroke();
 
-    // land dots
-    var dr = Math.max(1, R / 260);
+    // land dots, batched into a few paths by colour and brightness (one fill per bucket)
+    var dr = Math.max(1, R / 260), B = 6, cool = [], warm = [];
+    for (var b = 0; b < B; b++) { cool.push(new Path2D()); warm.push(new Path2D()); }
     for (var i = 0; i < dots.length; i++) {
       var d = dots[i], p = rot(d);
       if (p[2] <= 0) continue;
-      var w = d[5];
-      ctx.fillStyle = w > 0.02 ? 'rgba(255,' + (228 - 30 * w | 0) + ',' + (220 - 90 * w | 0) + ',' + ((0.14 + 0.5 * p[2]) * (1 - w) + (0.4 + 0.55 * p[2]) * w) + ')' : 'rgba(205,228,224,' + (0.14 + 0.5 * p[2]) + ')';
-      ctx.fillRect(p[0] - dr, p[1] - dr, dr * 2, dr * 2);
+      var bi = Math.min(B - 1, p[2] * B | 0);
+      (d[5] > 0.35 ? warm : cool)[bi].rect(p[0] - dr, p[1] - dr, dr * 2, dr * 2);
+    }
+    for (var q = 0; q < B; q++) {
+      var z = (q + 0.5) / B;
+      ctx.fillStyle = 'rgba(205,228,224,' + (0.14 + 0.5 * z) + ')'; ctx.fill(cool[q]);
+      ctx.fillStyle = 'rgba(255,205,140,' + (0.35 + 0.6 * z) + ')'; ctx.fill(warm[q]);
     }
 
     // arcs
@@ -152,8 +157,9 @@
   if (reduce) { draw(0); return; }
   var visible = true, t0 = performance.now();
   if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(cv);
+  var last = 0;
   (function frame(now) {
-    if (visible && !document.hidden) draw((now - t0) / 1000);
+    if (visible && !document.hidden && now - last > 32) { last = now; draw((now - t0) / 1000); }
     requestAnimationFrame(frame);
   })(t0);
 })();

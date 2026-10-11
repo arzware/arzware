@@ -8,6 +8,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
+import { createHash } from 'node:crypto';
 import { services, renderService } from './src/service-template.mjs';
 import { heroCard } from './src/hero-art.mjs';
 
@@ -22,7 +23,7 @@ const layout = read(join(SRC, 'layout.html'));
 const logo = partial('logo');
 const WA = 'https://wa.me/96181901378?text=' + encodeURIComponent("Hi Arzware, I'd like to talk about my business.");
 const WAICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.6c0 3 2.4 6.4 6.2 6.9l1.2-1.4-1.9-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-1.9z"/></svg>';
-const SITE_DESCRIPTION = "Arzware is a business development and digital solutions company: we diagnose what's slowing a business down, then build the fix or connect you with a partner we trust.";
+const SITE_DESCRIPTION = "Arzware is an AI and business development company. We research how a business works, then build the intelligent tools that help it, and the people around it, grow.";
 
 const org = {
   '@context': 'https://schema.org',
@@ -35,6 +36,8 @@ const org = {
   telephone: '+96181901378',
   address: { '@type': 'PostalAddress', addressLocality: 'Hamra, Beirut', addressCountry: 'LB' },
   areaServed: ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'LB'],
+  sameAs: ['https://github.com/arzware'],
+  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: 'support@arzware.net', telephone: '+96181901378', availableLanguage: ['en'] }],
   description: SITE_DESCRIPTION,
 };
 
@@ -91,7 +94,17 @@ function emit(url, meta, body, pageJsonld = []) {
   const noindex = meta.noindex || url === '/404.html';
   const expand = (t) => t.replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (_, n) => expand(partial(n)));
   const header = partial('header').replace(/\{\{cur:(\w+)\}\}/g, (_, k) => (k === meta.nav ? ' aria-current="page"' : ''));
-  const extra = (meta.jsonld ? [].concat(meta.jsonld) : []).concat(pageJsonld)
+  const crumbs = [];
+  if (url === '/') {
+    crumbs.push({ '@context': 'https://schema.org', '@type': 'WebSite', name: 'Arzware', url: `${SITE}/`, inLanguage: 'en', publisher: { '@type': 'Organization', name: 'Arzware', url: SITE } });
+  } else if (url !== '/404.html') {
+    const parts = url.split('/').filter(Boolean);
+    const items = [{ name: 'Home', item: `${SITE}/` }];
+    if (parts[0] === 'services' && parts.length > 1) items.push({ name: 'Services', item: `${SITE}/services/` });
+    items.push({ name: meta.crumb || meta.title.split(' · ')[0].split(':')[0], item: canonical });
+    crumbs.push({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map((x, i) => ({ '@type': 'ListItem', position: i + 1, name: x.name, item: x.item })) });
+  }
+  const extra = (meta.jsonld ? [].concat(meta.jsonld) : []).concat(pageJsonld, crumbs)
     .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join('\n');
 
   const html = layout
@@ -142,5 +155,28 @@ writeFileSync(
 );
 if (!existsSync(join(OUT, 'robots.txt'))) {
   writeFileSync(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
+}
+// Keep the CSP script hash in dist/_headers in sync with the inline script in the layout.
+{
+  const inline = (layout.match(/<script>([^<]*)<\/script>/) || [])[1];
+  const hp = join(OUT, '_headers');
+  if (inline && existsSync(hp)) {
+    const hash = createHash('sha256').update(inline).digest('base64');
+    writeFileSync(hp, read(hp).replace(/'sha256-[^']+'/, `'sha256-${hash}'`));
+  }
+}
+// Minify the stylesheet in dist (comments and whitespace only; keeps descendant spaces before ':').
+{
+  const cssPath = join(OUT, 'assets', 'styles.css');
+  const before = read(cssPath);
+  const min = before
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([{};,>])\s*/g, '$1')
+    .replace(/:\s+/g, ':')
+    .replace(/;}/g, '}')
+    .trim();
+  writeFileSync(cssPath, min);
+  console.log(`css ${before.length} -> ${min.length} bytes`);
 }
 console.log(`done: ${sitemap.length} pages in sitemap`);
