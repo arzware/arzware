@@ -24,8 +24,6 @@
   /* Type */
   --font: "DM Sans", "IBM Plex Sans Arabic", "Helvetica Neue", Arial, sans-serif;
   --display: "Sora", "IBM Plex Sans Arabic", "Helvetica Neue", Arial, sans-serif;
-  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --serif-text: "Fraunces", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --t-display: clamp(3rem, 1.9rem + 4.7vw, 5.5rem);
   --t-h1: clamp(2.6rem, 1.6rem + 4vw, 4.75rem);
@@ -534,18 +532,17 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .hero h1.slogan .turn { display: block; color: var(--coral-deep); }
 .hero h1.slogan .turn .word span { color: inherit; }
 
-/* Thesis: editorial band (warm paper, serif headline with an italic turn, mono eyebrow) */
-.thesis { background: #f1ebe1; }
+/* Thesis: two columns. Headline with a coloured turn on the left; statement, then a quieter follow-up on the right */
+.thesis { border-block-end: 1px solid var(--line); }
 .thesis-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
 .thesis-grid > * { min-width: 0; }
-.eyebrow { font: 500 .8rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #6b6253; margin-block-end: var(--s-5); }
-.thesis-title { font: 400 clamp(2.6rem, 1.4rem + 4vw, 4.6rem)/1.02 var(--serif); letter-spacing: -.02em; color: #14110d; max-width: 12ch; }
-.thesis-title em { font-style: italic; color: #a0763a; }
-.thesis-body { display: grid; gap: var(--s-5); padding-block-start: calc(.8rem + var(--s-5)); }
-.thesis-body p { font: 400 clamp(1.1rem, 1rem + .4vw, 1.3rem)/1.6 var(--serif-text); color: #14110d; }
-.thesis-body p.muted { color: #6b6253; font-size: clamp(1.02rem, .97rem + .25vw, 1.15rem); }
-.mono-link { justify-self: start; font: 500 .8rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #14110d; text-decoration: none; border-block-end: 1px solid currentColor; padding-block-end: 3px; }
-.mono-link:hover { color: #a0763a; }
+.thesis-grid .label { margin-block-end: var(--s-5); }
+.thesis-title { font-size: clamp(2.4rem, 1.4rem + 3.4vw, 4.2rem); line-height: 1.04; letter-spacing: -.04em; max-width: 12ch; }
+.thesis-title em { font-style: normal; color: var(--coral-deep); }
+.thesis-body { display: grid; gap: var(--s-5); padding-block-start: calc(var(--t-label) + var(--s-5)); }
+.thesis-body p { font-size: clamp(1.15rem, 1.05rem + .45vw, 1.4rem); line-height: 1.55; color: var(--ink); }
+.thesis-body p.muted { color: var(--ink-3); font-size: clamp(1.05rem, 1rem + .25vw, 1.2rem); }
+.thesis-body .link-arrow { justify-self: start; }
 .js .thesis-body .rv:nth-child(2) { transition-delay: .12s; }
 .js .thesis-body .rv:nth-child(3) { transition-delay: .24s; }
 @media (max-width: 860px) { .thesis-grid { grid-template-columns: minmax(0, 1fr); } .thesis-body { padding-block-start: 0; } }
