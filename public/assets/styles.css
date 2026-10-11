@@ -24,6 +24,8 @@
   /* Type */
   --font: "DM Sans", "IBM Plex Sans Arabic", "Helvetica Neue", Arial, sans-serif;
   --display: "Sora", "IBM Plex Sans Arabic", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --serif-text: "Fraunces", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --t-display: clamp(3rem, 1.9rem + 4.7vw, 5.5rem);
   --t-h1: clamp(2.6rem, 1.6rem + 4vw, 4.75rem);
@@ -532,12 +534,19 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .hero h1.slogan .turn { display: block; color: var(--coral-deep); }
 .hero h1.slogan .turn .word span { color: inherit; }
 
-/* Thesis: large statement, lines fade in one after another */
-.thesis .wrap { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
-.thesis .label { font-family: var(--font); font-size: var(--t-label); letter-spacing: .09em; }
-.t-line { max-width: 54rem; font: 500 clamp(1.5rem, 1.05rem + 1.9vw, 2.6rem)/1.3 var(--display); letter-spacing: -.025em; color: var(--ink); }
-.t-line em { font-style: normal; color: var(--coral-deep); }
-.t-close { color: var(--ink-3); }
-.js .thesis .rv:nth-of-type(2) { transition-delay: .15s; }
-.js .thesis .rv:nth-of-type(3) { transition-delay: .3s; }
+/* Thesis: editorial band (warm paper, serif headline with an italic turn, mono eyebrow) */
+.thesis { background: #f1ebe1; }
+.thesis-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; }
+.thesis-grid > * { min-width: 0; }
+.eyebrow { font: 500 .8rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #6b6253; margin-block-end: var(--s-5); }
+.thesis-title { font: 400 clamp(2.6rem, 1.4rem + 4vw, 4.6rem)/1.02 var(--serif); letter-spacing: -.02em; color: #14110d; max-width: 12ch; }
+.thesis-title em { font-style: italic; color: #a0763a; }
+.thesis-body { display: grid; gap: var(--s-5); padding-block-start: calc(.8rem + var(--s-5)); }
+.thesis-body p { font: 400 clamp(1.1rem, 1rem + .4vw, 1.3rem)/1.6 var(--serif-text); color: #14110d; }
+.thesis-body p.muted { color: #6b6253; font-size: clamp(1.02rem, .97rem + .25vw, 1.15rem); }
+.mono-link { justify-self: start; font: 500 .8rem var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #14110d; text-decoration: none; border-block-end: 1px solid currentColor; padding-block-end: 3px; }
+.mono-link:hover { color: #a0763a; }
+.js .thesis-body .rv:nth-child(2) { transition-delay: .12s; }
+.js .thesis-body .rv:nth-child(3) { transition-delay: .24s; }
+@media (max-width: 860px) { .thesis-grid { grid-template-columns: minmax(0, 1fr); } .thesis-body { padding-block-start: 0; } }
 #who .intro-line { max-width: 20ch; }
