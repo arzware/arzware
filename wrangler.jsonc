@@ -1,6 +1,6 @@
 {
   // Cloudflare Workers static assets. Build with `node build.mjs`, then `npx wrangler deploy`.
-  "name": "arzware-portfolio",
+  "name": "arzware",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./dist",
