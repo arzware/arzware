@@ -3,9 +3,12 @@
 //   <!--meta {"title": "...", "description": "...", "nav": "services", "noindex": false} -->
 // Partials in src/partials are included with {{> name}}.
 // Output goes to dist/ with clean URLs (services.html -> /services/).
+// Service pages (/services/<slug>/) are generated from src/data/services.mjs via src/service-template.mjs.
+// Anywhere in a page or partial: {{wa}} = WhatsApp link with prefilled text, {{waicon}} = WhatsApp icon.
 
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
+import { services, renderService } from './src/service-template.mjs';
 
 const SITE = 'https://arzware.net';
 const SRC = 'src';
@@ -16,6 +19,9 @@ const read = (p) => readFileSync(p, 'utf8');
 const partial = (name) => read(join(SRC, 'partials', `${name}.html`)).trim();
 const layout = read(join(SRC, 'layout.html'));
 const logo = partial('logo');
+const WA = 'https://wa.me/96181901378?text=' + encodeURIComponent("Hi Arzware, I'd like to talk about my business.");
+const WAICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.6c0 3 2.4 6.4 6.2 6.9l1.2-1.4-1.9-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-1.9z"/></svg>';
+const SITE_DESCRIPTION = "Arzware is a business development and digital solutions company: we diagnose what's slowing a business down, then build the fix or connect you with a partner we trust.";
 
 const org = {
   '@context': 'https://schema.org',
@@ -27,7 +33,7 @@ const org = {
   telephone: '+96181901378',
   address: { '@type': 'PostalAddress', addressLocality: 'Hamra, Beirut', addressCountry: 'LB' },
   areaServed: ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'LB'],
-  description: 'Business development and digital solutions: research, diagnosis, websites, WhatsApp automation, CRM, AI setup and more.',
+  description: SITE_DESCRIPTION,
 };
 
 function pagesIn(dir) {
@@ -56,39 +62,50 @@ cpSync('public', OUT, { recursive: true });
 
 const sitemap = [];
 
-for (const file of pagesIn(join(SRC, 'pages'))) {
-  let src = read(file);
-  const m = src.match(/^<!--meta\s+([\s\S]*?)\s*-->/);
-  if (!m) throw new Error(`Missing meta comment in ${file}`);
-  const meta = JSON.parse(m[1]);
-  src = src.slice(m[0].length);
-
-  const url = urlFor(file);
+function emit(url, meta, body, pageJsonld = []) {
   const canonical = `${SITE}${url === '/404.html' ? '/' : url}`;
   const noindex = meta.noindex || url === '/404.html';
-
-  let content = src.replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (_, n) => partial(n));
-  let header = partial('header').replace(/\{\{cur:(\w+)\}\}/g, (_, k) => (k === meta.nav ? ' aria-current="page"' : ''));
+  const expand = (t) => t.replace(/\{\{>\s*([\w-]+)\s*\}\}/g, (_, n) => expand(partial(n)));
+  const header = partial('header').replace(/\{\{cur:(\w+)\}\}/g, (_, k) => (k === meta.nav ? ' aria-current="page"' : ''));
+  const extra = (meta.jsonld ? [].concat(meta.jsonld) : []).concat(pageJsonld)
+    .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join('\n');
 
   const html = layout
-    .replace('{{header}}', header)
-    .replace('{{footer}}', partial('footer'))
-    .replace('{{content}}', content.trim())
+    .replace('{{header}}', () => header)
+    .replace('{{footer}}', () => partial('footer'))
+    .replace('{{content}}', () => expand(body).trim())
+    .replace('{{pagejsonld}}', () => extra)
+    .replace('{{jsonld}}', () => JSON.stringify(org))
     .replaceAll('{{logo}}', logo)
+    .replaceAll('{{wa}}', WA.replace(/'/g, '%27'))
+    .replaceAll('{{waicon}}', WAICON)
     .replaceAll('{{title}}', meta.title)
-    .replaceAll('{{description}}', meta.description)
+    .replaceAll('{{description}}', meta.description.replace(/"/g, '&quot;'))
     .replaceAll('{{canonical}}', canonical)
     .replaceAll('{{robots}}', noindex ? 'noindex, follow' : 'index, follow')
     .replaceAll('{{lang}}', meta.lang || 'en')
     .replaceAll('{{dir}}', meta.dir || 'ltr')
-    .replaceAll('{{version}}', VERSION)
-    .replace('{{jsonld}}', JSON.stringify(org));
+    .replaceAll('{{version}}', VERSION);
 
+  const left = html.match(/\{\{[^}]+\}\}/);
+  if (left) throw new Error(`Unreplaced placeholder ${left[0]} in ${url}`);
   const out = outFor(url);
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, html);
   if (!noindex) sitemap.push(canonical);
   console.log(`built ${url}`);
+}
+
+for (const file of pagesIn(join(SRC, 'pages'))) {
+  const src = read(file);
+  const m = src.match(/^<!--meta\s+([\s\S]*?)\s*-->/);
+  if (!m) throw new Error(`Missing meta comment in ${file}`);
+  emit(urlFor(file), JSON.parse(m[1]), src.slice(m[0].length));
+}
+
+for (const s of services) {
+  const { meta, content, jsonld } = renderService(s);
+  emit(`/services/${s.slug}/`, meta, content, jsonld);
 }
 
 const today = new Date().toISOString().slice(0, 10);
