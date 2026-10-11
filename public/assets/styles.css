@@ -548,26 +548,34 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 @media (max-width: 860px) { .thesis-grid { grid-template-columns: minmax(0, 1fr); } .thesis-body { padding-block-start: 0; } }
 #who .intro-line { max-width: 20ch; }
 
-/* Who we are: deep teal band */
-:root { --teal: #14432c; } /* cedar green, deep */
-.who { background: var(--teal); color: #fff; }
+
 .who .label { color: var(--saffron); }
 .who h2, .who h3 { color: #fff; }
 .who .facts > div { border-color: rgba(255, 255, 255, .55); }
 .who .facts p { color: rgba(255, 255, 255, .82); }
 .who + section { border-block-start: 0; }
 
-/* Home rhythm: every section differs from its neighbours.
-   hero (light ribbon) > thesis (white) > who (cedar) > method (sand) > services (white)
-   > tools (mist) > homework (ink) > industries (white) > promises (lilac) > insights (white)
-   > Digital First Aid (pale saffron) > FAQ (white) > closing CTA (saffron card) > footer (grey) */
-.bg-sand { background: #f6f1e8; }
-.bg-mist { background: var(--mist); }
-.bg-lilac { background: #f0eefe; }
-.bg-sun { background: #fff4e0; }
-.bg-sand .pillar { background: #fff; }
-.bg-mist .toolwall { background: #fff; border-color: #d3dfdd; }
-.bg-mist .toolwall span { border-color: #d3dfdd; }
-.homework { background: var(--ink); }
+/* ---- Palette (taken from the hero) ----
+   Backgrounds: white #ffffff · cream #fdf8f1 · mist #f3f6f6 · ink #0f2427 · saffron #ffb23f
+   Accents only (text, lines, illustration): coral-deep #b9402f · coral #ff6f5b · violet #6d5dfc
+   Rule: each section's background differs from the one above it. */
+:root { --cream: #fdf8f1; --mist-2: #f3f6f6; }
+.bg-white { background: #fff; }
+.bg-cream { background: var(--cream); }
+.bg-mist2 { background: var(--mist-2); }
+.bg-ink { background: var(--ink); color: #fff; }
+.bg-ink h2, .bg-ink h3 { color: #fff; }
+.bg-ink .label { color: var(--saffron); }
+.bg-cream .pillar, .bg-cream .post, .bg-cream .scene { background: #fff; }
+.bg-cream .toolwall { background: #fff; }
+.who .facts > div { border-color: rgba(255, 255, 255, .45); }
+.who .facts p { color: rgba(255, 255, 255, .8); }
 .homework .panel { background: transparent; padding: 0; border-radius: 0; overflow: visible; }
-.bg-sun .teaser { border-color: rgba(15, 36, 39, .25); }
+.bg-cream .teaser { border-color: rgba(15, 36, 39, .25); }
+/* Closing invitation: full-width saffron band */
+.cta-section { background: var(--saffron); position: relative; overflow: hidden; }
+.cta-section .cta-band { background: transparent; padding: 0; border-radius: 0; overflow: visible; }
+.cta-section::after { content: ""; position: absolute; inset-inline-end: -8%; top: -60%; width: 50%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255, 111, 91, .45), transparent 65%); pointer-events: none; }
+.cta-section .cta-band::after { display: none; }
+.site-footer { background: var(--mist-2); margin-block-start: 0; }
+.bg-cream .sign, .bg-cream .wont, .bg-cream .door:not(.primary), .bg-cream .tabpanel, .bg-cream .note:not(.in-progress) { background: #fff; }
