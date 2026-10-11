@@ -547,3 +547,12 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .js .thesis-body .rv:nth-child(3) { transition-delay: .24s; }
 @media (max-width: 860px) { .thesis-grid { grid-template-columns: minmax(0, 1fr); } .thesis-body { padding-block-start: 0; } }
 #who .intro-line { max-width: 20ch; }
+
+/* Who we are: deep teal band */
+:root { --teal: #005c5c; }
+.who { background: var(--teal); color: #fff; }
+.who .label { color: var(--saffron); }
+.who h2, .who h3 { color: #fff; }
+.who .facts > div { border-color: rgba(255, 255, 255, .55); }
+.who .facts p { color: rgba(255, 255, 255, .82); }
+.who + section { border-block-start: 0; }
