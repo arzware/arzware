@@ -142,8 +142,6 @@ ul, ol { margin: 0; }
 .hero h1 .second { display: block; color: var(--ink-2); }
 .hero .lead { max-width: 40ch; color: var(--ink); font-size: clamp(1.1rem, 1rem + .5vw, 1.35rem); }
 .hero .actions { margin-block-start: var(--s-3); }
-.pause { position: absolute; z-index: 2; inset-inline-end: var(--gutter); bottom: var(--s-5); display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.8); backdrop-filter: blur(8px); font: 500 .875rem var(--font); color: var(--ink); cursor: pointer; }
-.pause svg { width: 14px; height: 14px; }
 
 /* Page hero (inner pages) */
 .page-hero { background: linear-gradient(180deg, #f3f6f6 0%, #fdf8f1 100%); padding-block: var(--s-9) var(--s-8); position: relative; overflow: hidden; isolation: isolate; }
@@ -361,13 +359,6 @@ form.f { display: grid; gap: var(--s-4); }
 @media (max-width: 1024px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer-grid > :first-child { grid-column: 1 / -1; } }
 @media (max-width: 480px) { .footer-grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* Mobile bottom bar */
-.bottom-bar { display: none; }
-@media (max-width: 960px) {
-  .bottom-bar { position: fixed; inset-inline: 0; bottom: 0; z-index: 40; display: flex; gap: var(--s-2); padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom, 0px)); background: rgba(255, 255, 255, .95); backdrop-filter: blur(10px); border-block-start: 1px solid var(--line); transform: translateY(110%); transition: transform .3s var(--ease); }
-  .bottom-bar.show { transform: none; }
-  .bottom-bar .btn { flex: 1; min-height: 44px; padding: 10px; }
-}
 
 /* Motion: fade up once */
 .js .rv { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
@@ -451,7 +442,7 @@ form.f { display: grid; gap: var(--s-4); }
 .announce a:hover { color: #ffc366; }
 .brand .wave { stroke: var(--saffron); }
 
-/* Rotating word in the home headline (stops with the pause button and with reduced motion) */
+/* Rotating word in the home headline (still frame only with reduced motion) */
 .word { display: inline-grid; overflow: hidden; vertical-align: bottom; }
 .word span { grid-area: 1 / 1; color: var(--ink); transition: transform .7s var(--ease), opacity .7s; }
 .word span::after { content: ""; display: block; height: .09em; background: var(--saffron); border-radius: 4px; margin-block-start: -.05em; }
@@ -482,7 +473,6 @@ form.f { display: grid; gap: var(--s-4); }
 .orbits .ring { fill: none; stroke: rgba(255, 255, 255, .14); }
 .js .orbits .spin { transform-origin: 220px 220px; animation: spin 40s linear infinite; }
 .js .orbits .spin2 { transform-origin: 220px 220px; animation: spin 26s linear infinite reverse; }
-.paused .orbits .spin, .paused .orbits .spin2 { animation-play-state: paused; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @media (max-width: 900px) { .panel { grid-template-columns: minmax(0, 1fr); } .pfacts { grid-template-columns: minmax(0, 1fr); } .orbits { max-width: 300px; } }
 

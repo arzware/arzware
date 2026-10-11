@@ -1,0 +1,13 @@
+{
+  "name": "Arzware",
+  "short_name": "Arzware",
+  "description": "Business development and digital solutions for growing businesses in the UAE and Saudi Arabia.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#0f2427",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

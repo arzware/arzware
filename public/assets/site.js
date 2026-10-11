@@ -48,14 +48,6 @@
     rv.forEach(function (el) { el.classList.add('in'); });
   }
 
-  /* Mobile bottom bar: appears after the first screen */
-  var bar = document.querySelector('.bottom-bar');
-  if (bar) {
-    var showBar = function () { bar.classList.toggle('show', window.scrollY > window.innerHeight * 0.8); };
-    window.addEventListener('scroll', showBar, { passive: true });
-    showBar();
-  }
-
   /* Tabs (WAI-ARIA tabs pattern with arrow keys) */
   document.querySelectorAll('[role="tablist"]').forEach(function (list) {
     var tabs = Array.prototype.slice.call(list.querySelectorAll('[role="tab"]'));
@@ -110,23 +102,14 @@
   }
 
   /* Motion: silky ribbon heroes, animated pillar art, rotating word, orbits.
-     One pause control stops everything (WCAG 2.2.2). Reduced motion shows a still frame. */
-  var paused = false;
-  try { paused = localStorage.getItem('arz-motion') === 'paused'; } catch (e) {}
-  function still() { return paused || reduceMQ.matches; }
-  root.classList.toggle('paused', still());
+     Always running; only an OS-level "reduce motion" setting shows a still frame. */
+  function still() { return reduceMQ.matches; }
 
-  // Every page hero gets the ribbon behind it, plus a pause button.
+  // Every page hero gets the ribbon behind it.
   document.querySelectorAll('.page-hero').forEach(function (h) {
     var c = document.createElement('canvas');
     c.setAttribute('data-gl', 'ribbon-soft'); c.setAttribute('aria-hidden', 'true');
     h.insertBefore(c, h.firstChild); h.classList.add('has-gl');
-    if (!h.querySelector('.pause')) {
-      var b = document.createElement('button');
-      b.className = 'pause'; b.type = 'button'; b.hidden = true;
-      b.innerHTML = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 2v10M10 2v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Pause animation</span>';
-      h.appendChild(b);
-    }
   });
 
   var N = 'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}' +
@@ -208,27 +191,6 @@
     setTimeout(function () { c.classList.remove('off'); }, 800);
   }, 2600);
 
-  // Pause buttons
-  var btns = document.querySelectorAll('.pause');
-  function sync() {
-    root.classList.toggle('paused', still());
-    btns.forEach(function (b) {
-      b.hidden = reduceMQ.matches;
-      b.setAttribute('aria-pressed', paused ? 'true' : 'false');
-      b.querySelector('span').textContent = paused ? 'Play animation' : 'Pause animation';
-      var path = b.querySelector('path');
-      path.setAttribute('d', paused ? 'M4 2l8 5-8 5z' : 'M4 2v10M10 2v10');
-      path.setAttribute('fill', paused ? 'currentColor' : 'none');
-    });
-    tick();
-  }
-  btns.forEach(function (b) {
-    b.addEventListener('click', function () {
-      paused = !paused;
-      try { localStorage.setItem('arz-motion', paused ? 'paused' : 'playing'); } catch (e) {}
-      sync();
-    });
-  });
-  if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', sync);
-  sync();
+  if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', function () { drawAll(); tick(); });
+  tick();
 })();

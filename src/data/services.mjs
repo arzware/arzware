@@ -12,7 +12,7 @@ export const services = [
     title: "See what's really holding your business back, with proof, before you spend on anything.",
     short: "See what's really holding your business back, with proof, before you spend on anything.",
     sub: 'We look at how your business works today, compare you with nearby competitors, and give you written findings with evidence and fixes in priority order.',
-    description: "A business diagnosis from Arzware: we review your website, Google listing, channels, ordering, payments and tools, compare you with competitors, and give you written findings with proof.",
+    description: "A business diagnosis from Arzware: we review your online presence, ordering, payments and tools, compare you with competitors, and give you written findings with proof.",
     cta: 'Start with a diagnosis',
     signs: [
       "You know something isn't working, but not exactly what.",
@@ -89,7 +89,7 @@ export const services = [
     title: 'Answer the same questions once, and stop losing orders in your chat.',
     short: 'Answer the same questions once, and stop losing orders in your chat.',
     sub: 'An assistant on your WhatsApp Business number that handles bookings, orders, order status or common questions, and hands over to a person when needed.',
-    description: 'WhatsApp booking and order assistants from Arzware: business-specific assistants for bookings, orders and common questions, connected to your tools, with hand-over to your team.',
+    description: 'WhatsApp booking and order assistants from Arzware for bookings, orders and common questions, connected to your tools, with hand-over to your team.',
     cta: 'Talk about your WhatsApp',
     signs: [
       'Your customers ask the same five questions on WhatsApp every day.',
