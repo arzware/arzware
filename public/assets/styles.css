@@ -525,3 +525,8 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .cta-band .btn-secondary { background: rgba(15, 36, 39, .1); }
 .word span { justify-self: start; width: max-content; }
 .page-hero h1 { font-size: clamp(2.4rem, 1.5rem + 3vw, 4rem); max-width: 20ch; }
+
+/* Home hero slogan: statement, then the turn (SocialLab / Playa-style introduction) */
+:root { --coral-deep: #b9402f; }
+.hero h1.slogan { max-width: 15ch; font-size: clamp(2.6rem, 1rem + 5.4vw, 5.8rem); }
+.hero h1.slogan .turn { display: block; color: var(--coral-deep); }
