@@ -549,7 +549,7 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 #who .intro-line { max-width: 20ch; }
 
 /* Who we are: deep teal band */
-:root { --teal: #005c5c; }
+:root { --teal: #1d5a3c; } /* cedar green */
 .who { background: var(--teal); color: #fff; }
 .who .label { color: var(--saffron); }
 .who h2, .who h3 { color: #fff; }
