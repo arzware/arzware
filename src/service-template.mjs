@@ -70,10 +70,7 @@ export function renderService(s) {
     <p class="label">${esc(s.name)}</p>
     <h1>${esc(s.title)}</h1>
     <p class="lead">${esc(s.sub)}</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="https://cal.com/arzware" rel="noopener">Book a free call <span class="arr" aria-hidden="true">→</span></a>
-      <a class="btn btn-secondary" href="{{wa}}" rel="noopener">Message us on WhatsApp</a>
-    </div>
+    <a class="link-arrow down" href="#get">What you get</a>
   </div>
 </section>
 
@@ -86,7 +83,7 @@ export function renderService(s) {
   </div>
 </section>
 
-<section class="section bg-warm">
+<section class="section bg-warm" id="get">
   <div class="wrap split">
     <div class="stack">
       <p class="label">What you get</p>
