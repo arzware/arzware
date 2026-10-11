@@ -7,6 +7,7 @@ export const PRICE_ANSWER = "Every business is different, so we quote after a sh
 export const services = [
   {
     slug: 'business-diagnosis',
+    hero: ['pale', 'lens', 'violet'],
     name: 'Business diagnosis',
     group: 'Start here',
     title: "See what's really holding your business back, with proof, before you spend on anything.",
@@ -46,6 +47,7 @@ export const services = [
   },
   {
     slug: 'cafe-restaurant-package',
+    hero: ['cream', 'cup', 'coral'],
     name: 'Café and restaurant package',
     group: 'Get found',
     title: 'Get found, take orders and get paid, without stitching ten tools together yourself.',
@@ -83,6 +85,7 @@ export const services = [
   },
   {
     slug: 'whatsapp-assistants',
+    hero: ['mesh-cool', 'bubbles', 'violet'],
     name: 'WhatsApp booking and order assistants',
     navName: 'WhatsApp assistants',
     group: 'Talk to customers',
@@ -121,6 +124,7 @@ export const services = [
   },
   {
     slug: 'crm-setup',
+    hero: ['lilac', 'pipeline', 'violet'],
     name: 'CRM setup',
     group: 'Talk to customers',
     title: 'Every lead and customer in one place, with reminders so nobody falls through.',
@@ -159,6 +163,7 @@ export const services = [
   },
   {
     slug: 'workspace-ai-setup',
+    hero: ['pale', 'folders', 'saffron'],
     name: 'Google Workspace and AI setup',
     group: 'Run the business',
     title: 'Professional email, shared files and AI tools your team will actually use.',
@@ -196,6 +201,7 @@ export const services = [
   },
   {
     slug: 'websites',
+    hero: ['mesh-warm', 'browser', 'coral'],
     name: 'Websites',
     group: 'Get found',
     title: 'A website that brings you customers, not just one that exists.',
@@ -234,6 +240,7 @@ export const services = [
   },
   {
     slug: 'pos-setup',
+    hero: ['cream', 'receipt', 'saffron'],
     name: 'POS setup',
     group: 'Run the business',
     title: 'Track orders, stock and sales without the guesswork.',
@@ -271,6 +278,7 @@ export const services = [
   },
   {
     slug: 'care-plans',
+    hero: ['lilac', 'shield', 'coral'],
     name: 'Monthly care plans',
     navName: 'Care plans',
     group: 'Keep it healthy',
@@ -310,6 +318,7 @@ export const services = [
   },
   {
     slug: 'apps-custom-software',
+    hero: ['mesh-dusk', 'phone', 'violet'],
     name: 'Mobile apps and custom software',
     navName: 'Apps and custom software',
     group: 'On request',

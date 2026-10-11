@@ -64,9 +64,8 @@ export function renderService(s) {
   const bySlug = Object.fromEntries(services.map((x) => [x.slug, x]));
   const faq = [['How much does it cost?', PRICE_ANSWER], ...s.faq];
   const content = `
-<section class="page-hero">
+<section class="page-hero" data-hero="${s.hero[0]}" data-art="${s.hero[1]}" data-tint="${s.hero[2]}">
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / <a href="/services/">Services</a> / ${esc(s.name)}</p>
     <p class="label">${esc(s.name)}</p>
     <h1>${esc(s.title)}</h1>
     <p class="lead">${esc(s.sub)}</p>

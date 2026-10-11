@@ -105,13 +105,6 @@
      Always running; only an OS-level "reduce motion" setting shows a still frame. */
   function still() { return reduceMQ.matches; }
 
-  // Every page hero gets the ribbon behind it.
-  document.querySelectorAll('.page-hero').forEach(function (h) {
-    var c = document.createElement('canvas');
-    c.setAttribute('data-gl', 'ribbon-soft'); c.setAttribute('aria-hidden', 'true');
-    h.insertBefore(c, h.firstChild); h.classList.add('has-gl');
-  });
-
   var N = 'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}' +
     'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),u.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),u.x),u.y);}' +
     'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*n(p);p*=2.03;a*=.5;}return v;}';

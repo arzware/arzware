@@ -9,6 +9,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { services, renderService } from './src/service-template.mjs';
+import { heroCard } from './src/hero-art.mjs';
 
 const SITE = 'https://arzware.net';
 const SRC = 'src';
@@ -66,6 +67,9 @@ cpSync('public', OUT, { recursive: true });
 // Dark (bg-ink, proof), saffron (cta-section) and hero sections keep their own colour.
 const FIXED = ['hero', 'page-hero', 'bg-ink', 'proof', 'cta-section'];
 const TONES = ['bg-white', 'bg-cream', 'bg-warm', 'bg-mist', 'bg-mist2', 'tight'];
+function cards(html) {
+  return html.replace(/<section class="page-hero"([^>]*)>\s*<div class="wrap">([\s\S]*?)<\/div>\s*<\/section>/g, (_, attrs, inner) => heroCard(attrs, inner.trim()));
+}
 function rhythm(html) {
   let prev = 'hero';
   return html.replace(/<section class="([^"]*)"/g, (m, cls) => {
@@ -93,7 +97,7 @@ function emit(url, meta, body, pageJsonld = []) {
   const html = layout
     .replace('{{header}}', () => header)
     .replace('{{footer}}', () => partial('footer'))
-    .replace('{{content}}', () => rhythm(expand(body)).trim())
+    .replace('{{content}}', () => rhythm(cards(expand(body))).trim())
     .replace('{{pagejsonld}}', () => extra)
     .replace('{{jsonld}}', () => JSON.stringify(org))
     .replaceAll('{{logo}}', logo)
