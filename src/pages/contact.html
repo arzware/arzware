@@ -1,53 +1,42 @@
-<!--meta {"title": "Contact · Arzware", "description": "Book a free call, message Arzware on WhatsApp on +961 81 901 378, or email support@arzware.net. Hamra, Beirut. Meetings by appointment.", "nav": ""} -->
-<section class="page-hero">
+<!--meta {"title": "Contact · Arzware", "description": "Contact Arzware: book a free first meeting at cal.com/arzware, WhatsApp or call +961 81 901 378, or email support@arzware.net. Hamra, Beirut, meetings by appointment.", "nav": "contact"} -->
+<section class="page-head" aria-labelledby="page-title">
   <div class="wrap">
-    <p class="label">Contact</p>
-    <h1>Let's talk about your business.</h1>
-    <p class="lead">Pick whichever is easiest. The first call is free, and it's a business conversation, not a sales pitch.</p>
+    <p class="crumbs"><a href="/">Home</a> / Contact</p>
+    <p class="kicker">Contact</p>
+    <h1 id="page-title">Tell us how your business works.</h1>
+    <p class="lede">The first meeting is free. It's a business conversation: you tell us what's happening, we ask questions, and we tell you honestly whether we can help.</p>
   </div>
 </section>
 
-<section class="section">
+<section class="section" aria-labelledby="ways-title">
   <div class="wrap">
-    <div class="doors">
-      <a class="door primary" href="https://cal.com/arzware" rel="noopener"><span class="label">Book a free call</span><span class="v">cal.com/arzware</span><p>Best for a first conversation. Pick a time that suits you.</p></a>
-      <a class="door" href="{{wa}}" rel="noopener"><span class="label">WhatsApp</span><span class="v"><bdi dir="ltr">+961 81 901 378</bdi></span><p>Best for a quick question, or if you prefer to chat.</p></a>
-      <a class="door" href="mailto:support@arzware.net"><span class="label">Email</span><span class="v">support@arzware.net</span><p>Best for sending documents or a longer brief.</p></a>
-      <a class="door" href="/digital-first-aid/"><span class="label">Community</span><span class="v">Digital First Aid</span><p>For humanitarian and community projects that need a hand.</p></a>
+    <div class="head single"><div><p class="kicker">Three ways to reach us</p><h2 id="ways-title">Choose whatever suits you.</h2></div></div>
+    <div class="cards">
+      <a class="card" href="https://cal.com/arzware" rel="noopener"><span class="kicker">Book a meeting</span><h3>cal.com/arzware</h3><p>Pick a time that suits you. Best if you'd like to talk it through.</p><span class="arrow-link">Book a time</span></a>
+      <a class="card" href="{{wa}}" rel="noopener"><span class="kicker">WhatsApp or call</span><h3><bdi dir="ltr">+961 81 901 378</bdi></h3><p>Best for a quick question, or to send us a few details first.</p><span class="arrow-link">Message us</span></a>
+      <a class="card" href="mailto:support@arzware.net"><span class="kicker">Email</span><h3>support@arzware.net</h3><p>Best if you'd like to share documents or a longer description.</p><span class="arrow-link">Write to us</span></a>
     </div>
   </div>
 </section>
 
-<section class="section tight">
+<section class="section bg-paper" aria-labelledby="next-title">
   <div class="wrap split">
+    <div class="stack"><p class="kicker">What happens next</p><h2 id="next-title">No pressure, no pitch.</h2></div>
+    <ol class="numbered">
+      <li>You get in touch, in whichever way suits you.</li>
+      <li>We meet for a free business conversation about how your business works.</li>
+      <li>We tell you honestly what we see, and whether we're the right team.</li>
+      <li>If it makes sense, we propose a diagnosis and send a quote in writing. If not, we'll suggest who could help.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="where-title">
+  <div class="wrap split">
+    <div class="stack"><p class="kicker">Where we are</p><h2 id="where-title">Hamra, Beirut.</h2></div>
     <div class="stack">
-      <p class="label">Or write to us here</p>
-      <h2>Tell us a little about your business.</h2>
-      <p class="muted">We use what you write only to reply to you. Nothing is stored on this website: the form opens WhatsApp or your email app with your message ready to send.</p>
-      <div class="wont">
-        <p class="label">Where we are</p>
-        <p>Hamra, Beirut, Lebanon. Meetings by appointment.</p>
-        <p class="muted">We're in Beirut, within two hours of Riyadh and Dubai.</p>
-      </div>
+      <p class="lede">Meetings are by appointment. Most of our work with businesses in the UAE and Saudi Arabia happens over calls, video, WhatsApp and shared documents.</p>
+      <p class="muted">Digital First Aid enquiries are welcome through any of the channels above. <a href="/digital-first-aid/">About the programme</a>.</p>
     </div>
-    <form class="f" novalidate>
-      <div class="row2">
-        <label>Your name<input name="name" autocomplete="name" required></label>
-        <label>Business name <span class="hint">So we can look you up before we reply</span><input name="business" autocomplete="organization"></label>
-      </div>
-      <div class="row2">
-        <label>Country
-          <select name="country"><option value="">Choose one</option><option>United Arab Emirates</option><option>Saudi Arabia</option><option>Qatar</option><option>Kuwait</option><option>Bahrain</option><option>Oman</option><option>Lebanon</option><option>Somewhere else</option></select>
-        </label>
-        <label>Best way to reach you <span class="hint">Phone, email or a good time to call</span><input name="reach"></label>
-      </div>
-      <label>Your message <span class="hint">What's bothering you in your business? A few lines is plenty.</span><textarea name="message" required></textarea></label>
-      <label>Send it by
-        <select name="via"><option value="whatsapp">WhatsApp</option><option value="email">Email</option></select>
-      </label>
-      <p class="err" role="alert" hidden></p>
-      <p class="ok" role="status" hidden>Your message is ready in WhatsApp or your email app. Press send there and it reaches us.</p>
-      <div><button class="btn btn-primary" type="submit">Prepare my message <span class="arr" aria-hidden="true">→</span></button></div>
-    </form>
   </div>
 </section>

@@ -12,7 +12,9 @@ import { services, renderService } from './src/service-template.mjs';
 
 const SITE = 'https://arzware.net';
 const SRC = 'src';
-const OUT = 'dist';
+// PREVIEW=1 writes dist-preview/ with relative links, so the site can be browsed from any folder or host.
+const PREVIEW = !!process.env.PREVIEW;
+const OUT = PREVIEW ? 'dist-preview' : 'dist';
 const VERSION = Date.now().toString(36);
 
 const read = (p) => readFileSync(p, 'utf8');
@@ -21,7 +23,7 @@ const layout = read(join(SRC, 'layout.html'));
 const logo = partial('logo');
 const WA = 'https://wa.me/96181901378?text=' + encodeURIComponent("Hi Arzware, I'd like to talk about my business.");
 const WAICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.6c0 3 2.4 6.4 6.2 6.9l1.2-1.4-1.9-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-1.9z"/></svg>';
-const SITE_DESCRIPTION = "Arzware is a business development and digital solutions company: we diagnose what's slowing a business down, then build the fix or connect you with a partner we trust.";
+const SITE_DESCRIPTION = 'Arzware is a business development and digital solutions company based in Beirut, working with growing businesses in the UAE and Saudi Arabia. We research first, then build the fix or connect a partner we trust.';
 
 const org = {
   '@context': 'https://schema.org',
@@ -32,7 +34,7 @@ const org = {
   email: 'support@arzware.net',
   telephone: '+96181901378',
   address: { '@type': 'PostalAddress', addressLocality: 'Hamra, Beirut', addressCountry: 'LB' },
-  areaServed: ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'LB'],
+  areaServed: ['AE', 'SA', 'LB'],
   description: SITE_DESCRIPTION,
 };
 
@@ -49,6 +51,17 @@ function urlFor(file) {
   if (rel === '404.html') return '/404.html';
   if (rel.endsWith('/index.html')) return `/${rel.slice(0, -'index.html'.length)}`;
   return `/${rel.replace(/\.html$/, '')}/`;
+}
+
+// Turn root-relative links into relative ones for the preview build.
+function relativise(html, url) {
+  const depth = url === '/404.html' ? 0 : url.split('/').filter(Boolean).length;
+  const up = depth ? '../'.repeat(depth) : './';
+  return html.replace(/(href|src)="\/(?!\/)([^"#?]*)([^"]*)"/g, (m, attr, path, rest) => {
+    let target = path;
+    if (target === '' || target.endsWith('/')) target += 'index.html';
+    return `${attr}="${up}${target}${rest}"`;
+  });
 }
 
 function outFor(url) {
@@ -70,7 +83,7 @@ function emit(url, meta, body, pageJsonld = []) {
   const extra = (meta.jsonld ? [].concat(meta.jsonld) : []).concat(pageJsonld)
     .map((j) => `<script type="application/ld+json">${JSON.stringify(j)}</script>`).join('\n');
 
-  const html = layout
+  let html = layout
     .replace('{{header}}', () => header)
     .replace('{{footer}}', () => partial('footer'))
     .replace('{{content}}', () => expand(body).trim())
@@ -88,6 +101,7 @@ function emit(url, meta, body, pageJsonld = []) {
     .replaceAll('{{version}}', VERSION);
 
   const left = html.match(/\{\{[^}]+\}\}/);
+  if (PREVIEW) html = relativise(html, url);
   if (left) throw new Error(`Unreplaced placeholder ${left[0]} in ${url}`);
   const out = outFor(url);
   mkdirSync(dirname(out), { recursive: true });
