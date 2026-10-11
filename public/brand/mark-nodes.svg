@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Arzware mark: nodes">
-  <path d="M11 37 C15 24 19 13 24 13 C29 13 31 27 37 30" stroke="#8FD4C1" stroke-width="3.2" stroke-linecap="round"/>
-  <circle cx="11" cy="37" r="4" fill="#8FD4C1"/>
-  <circle cx="24" cy="13" r="4" fill="#8FD4C1"/>
-  <circle cx="37" cy="30" r="4" fill="#8FD4C1"/>
+  <path d="M11 37 C15 24 19 13 24 13 C29 13 31 27 37 30" stroke="#E9A23B" stroke-width="3.2" stroke-linecap="round"/>
+  <circle cx="11" cy="37" r="4" fill="#E9A23B"/>
+  <circle cx="24" cy="13" r="4" fill="#E9A23B"/>
+  <circle cx="37" cy="30" r="4" fill="#E9A23B"/>
 </svg>

@@ -100,7 +100,7 @@ document.documentElement.classList.add('js');
     'vec2 q=vec2(fbm(p+tt),fbm(p+vec2(5.2,1.3)-tt));',
     'vec2 w=vec2(fbm(p+3.*q+vec2(1.7,9.2)+tt*1.4+m*.6),fbm(p+3.*q+vec2(8.3,2.8)-tt));',
     'float f=fbm(p+2.5*w);',
-    'vec3 lagoon=vec3(.059,.141,.153),deep=vec3(.075,.22,.22),saff=vec3(1.,.70,.25),flam=vec3(1.,.44,.57),vio=vec3(.62,.45,1.),mint=vec3(.72,.95,.9);',
+    'vec3 lagoon=vec3(.086,.071,.11),deep=vec3(.16,.105,.15),saff=vec3(.914,.635,.231),flam=vec3(.784,.333,.239),vio=vec3(.42,.2,.3),mint=vec3(.95,.82,.55);',
     'vec3 c=mix(lagoon,deep,smoothstep(.2,.6,f));',
     'c=mix(c,flam,smoothstep(.48,.8,f)*.95*smoothstep(.1,.85,uv.x));',
     'c=mix(c,saff,smoothstep(.55,.9,length(w))*.85*smoothstep(.2,1.,uv.x));',
