@@ -1,43 +1,73 @@
-# arzware.net
+<a href="https://arzware.net">
+  <img src=".github/profile/banner.svg" alt="Arzware: AI can do almost anything. We make sure it does good." width="100%">
+</a>
 
-The Arzware company website. Static, no dependencies, hosted on Cloudflare.
+<p align="center">
+  <a href="https://arzware.net"><img alt="Website: arzware.net" src="https://img.shields.io/badge/Website-arzware.net-0F2427?style=for-the-badge&labelColor=FFB23F"></a>
+  <a href="https://cal.com/arzware"><img alt="Book a free call" src="https://img.shields.io/badge/Book_a_free_call-cal.com%2Farzware-0F2427?style=for-the-badge&labelColor=FF6F5B"></a>
+  <a href="mailto:support@arzware.net"><img alt="Email: support@arzware.net" src="https://img.shields.io/badge/Email-support%40arzware.net-0F2427?style=for-the-badge&labelColor=6D5DFC"></a>
+</p>
 
-## Build and preview
+## Hi, we're Arzware
 
-```sh
-node build.mjs                                  # writes dist/
-python3 -m http.server 8080 --directory dist    # preview at http://localhost:8080
-```
+**Arzware is an AI and business development company.** We research how a business works, then build the intelligent tools that help it, and the people around it, grow.
 
-## Deploy (Cloudflare)
+We work with growing businesses across the Gulf, from our base in Hamra, Beirut.
 
-- **Cloudflare Pages via Git (recommended):** connect this repo, build command `node build.mjs`, output directory `dist`. Every push to `main` deploys.
-- **Or Workers:** `npx wrangler deploy` after building. `wrangler.jsonc` serves `./dist` with clean URLs and the custom 404 page.
+## Our thesis
 
-Security headers and caching live in `public/_headers`. If you add Cloudflare Web Analytics, add `https://static.cloudflareinsights.com` to `script-src` and `https://cloudflareinsights.com` to `connect-src` in the Content-Security-Policy there.
+AI is coming to every business. Too often it arrives the wrong way: tools bought before anyone understood the problem, data handed over without knowing where it goes, automation that pushes people out instead of helping them.
 
-## Where things live
+**We believe in the opposite order.** Understand the business first. Use AI where it truly helps. Keep people in charge. And make sure the benefit reaches past the business, to its customers, its team and its community.
 
-| What | Where |
-|---|---|
-| Page layout (head, header, footer slots) | `src/layout.html` |
-| Header (with announcement bar), footer, closing CTA, logo | `src/partials/` |
-| Pages | `src/pages/` (`about.html` becomes `/about/`) |
-| The 9 service pages | `src/data/services.mjs` (copy) + `src/service-template.mjs` (layout) |
-| Design system | `public/assets/styles.css` |
-| Motion (WebGL ribbons and pillar art, rotating word), menu, tabs, contact form | `public/assets/site.js` |
-| Social share image and app icons | `public/og-image.png`, `public/icon-*.png`, `public/apple-touch-icon.png` |
+<img src=".github/profile/divider.svg" alt="" width="100%">
 
-Placeholders available in any page or partial: `{{wa}}` (WhatsApp link with prefilled message), `{{waicon}}`, `{{logo}}`, `{{> partial-name}}`. The build fails if a placeholder is left unreplaced.
+## What we do
 
-## Rules the copy follows
+| | Service | In one line |
+|---|---|---|
+| 🔍 | [Business diagnosis](https://arzware.net/services/business-diagnosis/) | See what's really holding your business back, with proof, before you spend on anything. |
+| 💬 | [WhatsApp assistants](https://arzware.net/services/whatsapp-assistants/) | Answer the same questions once, and stop losing orders in your chat. |
+| 📇 | [CRM setup](https://arzware.net/services/crm-setup/) | Every lead and customer in one place, with reminders so nobody falls through. |
+| 🧠 | [Google Workspace and AI setup](https://arzware.net/services/workspace-ai-setup/) | Professional email, shared files and AI tools your team will actually use. |
+| 🌐 | [Websites](https://arzware.net/services/websites/) | A website that brings you customers, not just one that exists. |
+| ☕ | [Café and restaurant package](https://arzware.net/services/cafe-restaurant-package/) | Get found, take orders and get paid, without stitching ten tools together yourself. |
+| 🧾 | [POS setup](https://arzware.net/services/pos-setup/) | Track orders, stock and sales without the guesswork. |
+| 🛡️ | [Monthly care plans](https://arzware.net/services/care-plans/) | Someone looking after your digital setup every month. |
+| 📱 | [Apps and custom software](https://arzware.net/services/apps-custom-software/) | When off-the-shelf tools aren't enough. |
 
-From `website-decisions.md` and `website-benchmark-and-blueprint.md` in the Arzware Drive:
-introduce the company before asking for anything; plain, confident statements; no prices
-("we quote after a short conversation"); no founder names, photos or team size; no invented
-clients, numbers or testimonials; no compliance claims; Gulf first.
+→ **[All services on arzware.net](https://arzware.net/services/)**
 
-## Before launch
+## How we work
 
-- Privacy and Terms need a lawyer's review (Lebanese Law 81/2018; UAE and Saudi PDPL exposure).
-- Founder decisions still open: call length, response-time promise, whether the diagnosis is free or paid, POS position, referral commission disclosure, Digital First Aid scope.
+1. **Research first.** We study your business, your customers and your competitors before we suggest anything.
+2. **Honest diagnosis.** A clear list of what's holding you back, with evidence, including things you didn't ask about.
+3. **Built to fit.** We set up the tools around how your team already works.
+4. **Connected to experts.** For anything outside our work, we introduce a partner we trust, and tell you who they are.
+
+→ **[Read the full approach](https://arzware.net/approach/)**
+
+## How we use AI
+
+- We name every AI provider before anything is connected, and explain what each one can see.
+- If your data needs to stay with you, we can run AI locally instead.
+- A person can always step in, and a person checks what matters before it goes out.
+
+<img src=".github/profile/divider.svg" alt="" width="100%">
+
+## Digital First Aid
+
+Some of our work is free, on purpose. **[Digital First Aid](https://arzware.net/digital-first-aid/)** is our community programme: quick, practical digital help for small businesses and community projects that need it. It isn't a sales programme.
+
+## Talk to us
+
+The first conversation is free, and it's a business conversation, not a sales pitch.
+
+- 🗓️ **Book a call:** [cal.com/arzware](https://cal.com/arzware)
+- 💬 **WhatsApp:** [+961 81 901 378](https://wa.me/96181901378)
+- ✉️ **Email:** [support@arzware.net](mailto:support@arzware.net)
+- 🌐 **Website:** [arzware.net](https://arzware.net)
+
+---
+
+<sub>This repository is the source of [arzware.net](https://arzware.net): a fast, dependency-free static site hosted on Cloudflare. Developer notes are in [DEVELOPMENT.md](DEVELOPMENT.md).</sub>

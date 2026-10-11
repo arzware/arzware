@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-label="Arzware: AI can do almost anything. We make sure it does good.">
+  <style>
+    .r1 { animation: drift1 14s ease-in-out infinite alternate; }
+    .r2 { animation: drift2 18s ease-in-out infinite alternate; }
+    .r3 { animation: drift3 22s ease-in-out infinite alternate; }
+    @keyframes drift1 { to { transform: translate(-40px, 18px); } }
+    @keyframes drift2 { to { transform: translate(30px, -22px); } }
+    @keyframes drift3 { to { transform: translate(-24px, -14px); } }
+    .t { font-family: 'Sora', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    .s { font-family: 'DM Sans', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3f6f6"/><stop offset="1" stop-color="#fdf8f1"/></linearGradient>
+    <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#ffb23f" stop-opacity="0"/><stop offset=".45" stop-color="#ffb23f"/><stop offset="1" stop-color="#ffd99a"/></linearGradient>
+    <linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#ff6f5b" stop-opacity="0"/><stop offset=".5" stop-color="#ff6f5b"/><stop offset="1" stop-color="#ffc2b8"/></linearGradient>
+    <linearGradient id="g3" x1="0" x2="1"><stop offset="0" stop-color="#6d5dfc" stop-opacity="0"/><stop offset=".55" stop-color="#6d5dfc"/><stop offset="1" stop-color="#b9b2ff"/></linearGradient>
+    <linearGradient id="fade" x1="0" x2="1"><stop offset="0" stop-color="#f6f6f3"/><stop offset=".42" stop-color="#f6f6f3" stop-opacity=".92"/><stop offset=".62" stop-color="#f6f6f3" stop-opacity="0"/></linearGradient>
+    <filter id="blur" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="22"/></filter>
+    <clipPath id="clip"><rect width="1280" height="420" rx="28"/></clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="1280" height="420" fill="url(#bg)"/>
+    <g filter="url(#blur)" opacity=".85">
+      <path class="r3" d="M380 120 C620 20 820 220 1060 90 S1360 60 1420 120 L1420 200 C1260 160 1120 260 900 210 S560 140 380 200 Z" fill="url(#g3)" opacity=".55"/>
+      <path class="r2" d="M360 230 C600 140 820 330 1060 220 S1340 180 1420 230 L1420 300 C1250 270 1100 360 880 320 S560 250 360 300 Z" fill="url(#g2)" opacity=".75"/>
+      <path class="r1" d="M380 320 C620 250 840 420 1080 330 S1350 300 1420 330 L1420 420 C1240 380 1100 460 880 420 S560 370 380 420 Z" fill="url(#g1)"/>
+    </g>
+    <rect width="1280" height="420" fill="url(#fade)"/>
+    <g transform="translate(72 64)">
+      <svg width="40" height="40" viewBox="0 0 48 48" fill="none"><path d="M10 40 L24 8 L38 40" stroke="#0f2427" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.8 29 C18.2 25.4 20.8 32.6 24 29 C27.2 25.4 29.8 32.6 33.2 29" stroke="#ffb23f" stroke-width="3.8" stroke-linecap="round"/></svg>
+      <text x="52" y="29" class="t" font-size="27" font-weight="700" fill="#0f2427" letter-spacing="-1">arzware</text>
+    </g>
+    <text x="72" y="196" class="t" font-size="54" font-weight="600" fill="#0f2427" letter-spacing="-2">AI can do almost anything.</text>
+    <text x="72" y="258" class="t" font-size="54" font-weight="600" fill="#b9402f" letter-spacing="-2">We make sure it does good.</text>
+    <text x="74" y="318" class="s" font-size="21" fill="#3b5255">AI and business development for growing businesses across the Gulf.</text>
+    <text x="74" y="362" class="s" font-size="18" font-weight="600" fill="#8f5a00" letter-spacing="1">ARZWARE.NET  →</text>
+  </g>
+</svg>
