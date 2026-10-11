@@ -531,3 +531,13 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .hero h1.slogan { max-width: 15ch; font-size: clamp(2.6rem, 1rem + 5.4vw, 5.8rem); }
 .hero h1.slogan .turn { display: block; color: var(--coral-deep); }
 .hero h1.slogan .turn .word span { color: inherit; }
+
+/* Thesis: large statement, lines fade in one after another */
+.thesis .wrap { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+.thesis .label { font-family: var(--font); font-size: var(--t-label); letter-spacing: .09em; }
+.t-line { max-width: 54rem; font: 500 clamp(1.5rem, 1.05rem + 1.9vw, 2.6rem)/1.3 var(--display); letter-spacing: -.025em; color: var(--ink); }
+.t-line em { font-style: normal; color: var(--coral-deep); }
+.t-close { color: var(--ink-3); }
+.js .thesis .rv:nth-of-type(2) { transition-delay: .15s; }
+.js .thesis .rv:nth-of-type(3) { transition-delay: .3s; }
+#who .intro-line { max-width: 20ch; }
