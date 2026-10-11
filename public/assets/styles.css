@@ -556,3 +556,18 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .who .facts > div { border-color: rgba(255, 255, 255, .55); }
 .who .facts p { color: rgba(255, 255, 255, .82); }
 .who + section { border-block-start: 0; }
+
+/* Home rhythm: every section differs from its neighbours.
+   hero (light ribbon) > thesis (white) > who (cedar) > method (sand) > services (white)
+   > tools (mist) > homework (ink) > industries (white) > promises (lilac) > insights (white)
+   > Digital First Aid (pale saffron) > FAQ (white) > closing CTA (saffron card) > footer (grey) */
+.bg-sand { background: #f6f1e8; }
+.bg-mist { background: var(--mist); }
+.bg-lilac { background: #f0eefe; }
+.bg-sun { background: #fff4e0; }
+.bg-sand .pillar { background: #fff; }
+.bg-mist .toolwall { background: #fff; border-color: #d3dfdd; }
+.bg-mist .toolwall span { border-color: #d3dfdd; }
+.homework { background: var(--ink); }
+.homework .panel { background: transparent; padding: 0; border-radius: 0; overflow: visible; }
+.bg-sun .teaser { border-color: rgba(15, 36, 39, .25); }
