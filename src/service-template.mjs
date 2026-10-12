@@ -141,7 +141,7 @@ export function renderService(s) {
   const jsonld = [
     { '@context': 'https://schema.org', '@type': 'Service', name: s.name, description: s.description, serviceType: s.name,
       provider: { '@type': 'Organization', name: 'Arzware', url: 'https://arzware.net' },
-      areaServed: ['AE', 'SA', 'LB'], url: `https://arzware.net/services/${s.slug}/` },
+      areaServed: ['LB', 'AE', 'SA'], url: `https://arzware.net/services/${s.slug}/` },
     { '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ];

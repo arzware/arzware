@@ -22,8 +22,9 @@ const partial = (name) => read(join(SRC, 'partials', `${name}.html`)).trim();
 const layout = read(join(SRC, 'layout.html'));
 const logo = partial('logo');
 const WA = 'https://wa.me/96181901378?text=' + encodeURIComponent("Hi Arzware, I'd like to talk about my business.");
+const WA_DFA = 'https://wa.me/96181901378?text=' + encodeURIComponent("Hi Arzware, I'd like to ask about Digital First Aid.");
 const WAICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.6c0 3 2.4 6.4 6.2 6.9l1.2-1.4-1.9-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-1.9z"/></svg>';
-const SITE_DESCRIPTION = "Arzware is an AI and business development company. We research how a business works, then build the intelligent tools that help it, and the people around it, grow.";
+const SITE_DESCRIPTION = "Arzware researches how a business works, then sets up the websites, WhatsApp assistants, CRM and AI tools it needs. Based in Beirut, working with businesses in Lebanon, the UAE and Saudi Arabia.";
 
 const org = {
   '@context': 'https://schema.org',
@@ -34,8 +35,8 @@ const org = {
   image: `${SITE}/og-image.png`,
   email: 'support@arzware.net',
   telephone: '+96181901378',
-  address: { '@type': 'PostalAddress', addressLocality: 'Hamra, Beirut', addressCountry: 'LB' },
-  areaServed: ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'LB'],
+  address: { '@type': 'PostalAddress', addressLocality: 'Beirut', addressCountry: 'LB' },
+  areaServed: ['LB', 'AE', 'SA'],
   sameAs: ['https://github.com/arzware'],
   contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: 'support@arzware.net', telephone: '+96181901378', availableLanguage: ['en'] }],
   description: SITE_DESCRIPTION,
@@ -115,6 +116,7 @@ function emit(url, meta, body, pageJsonld = []) {
     .replace('{{pagescripts}}', () => (meta.scripts || []).map((src) => `<script src="${src}?v=${VERSION}" defer></script>`).join('\n'))
     .replace('{{jsonld}}', () => JSON.stringify(org))
     .replaceAll('{{logo}}', logo)
+    .replaceAll('{{wa-dfa}}', WA_DFA.replace(/'/g, '%27'))
     .replaceAll('{{wa}}', WA.replace(/'/g, '%27'))
     .replaceAll('{{waicon}}', WAICON)
     .replaceAll('{{title}}', meta.title)
@@ -125,11 +127,15 @@ function emit(url, meta, body, pageJsonld = []) {
     .replaceAll('{{dir}}', meta.dir || 'ltr')
     .replaceAll('{{version}}', VERSION);
 
-  const left = html.match(/\{\{[^}]+\}\}/);
+  // The 404 page is not a copy of Home: no canonical or og:url.
+  const finalHtml = url === '/404.html'
+    ? html.replace(/<link rel="canonical"[^>]*>\n/, '').replace(/<meta property="og:url"[^>]*>\n/, '')
+    : html;
+  const left = finalHtml.match(/\{\{[^}]+\}\}/);
   if (left) throw new Error(`Unreplaced placeholder ${left[0]} in ${url}`);
   const out = outFor(url);
   mkdirSync(dirname(out), { recursive: true });
-  writeFileSync(out, html);
+  writeFileSync(out, finalHtml);
   if (!noindex) sitemap.push(canonical);
   console.log(`built ${url}`);
 }
@@ -146,11 +152,11 @@ for (const s of services) {
   emit(`/services/${s.slug}/`, meta, content, jsonld);
 }
 
-const today = new Date().toISOString().slice(0, 10);
+// No <lastmod>: the build date is not the date a page's content changed.
 writeFileSync(
   join(OUT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap
-    .map((u) => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`)
+    .map((u) => `  <url><loc>${u}</loc></url>`)
     .join('\n')}\n</urlset>\n`
 );
 if (!existsSync(join(OUT, 'robots.txt'))) {

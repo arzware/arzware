@@ -26,6 +26,8 @@
       var open = header.classList.toggle('open');
       menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
       menuBtn.textContent = open ? 'Close' : 'Menu';
+      // Move keyboard focus into the menu that just opened (the button sits after the nav in the page).
+      if (open) { var first = document.querySelector('#site-nav a'); if (first) first.focus(); }
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && header.classList.contains('open')) { closeMenu(); menuBtn.focus(); } });
     window.addEventListener('resize', function () { if (window.innerWidth > 960) closeMenu(); });
@@ -150,12 +152,14 @@
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     var sc = { cv: cv, gl: gl, uR: gl.getUniformLocation(pr, 'r'), uT: gl.getUniformLocation(pr, 't'), vis: true,
-      scale: /^ribbon/.test(cv.getAttribute('data-gl')) ? 0.6 : 1 };
+      scale: /^ribbon/.test(cv.getAttribute('data-gl')) ? 0.6 : 1,
+      /* The hero background runs slower so the moving headline word stays the focus. */
+      speed: /^ribbon/.test(cv.getAttribute('data-gl')) ? 0.7 : 1 };
     sc.size = function () {
       cv.width = Math.max(1, cv.clientWidth * sc.scale | 0); cv.height = Math.max(1, cv.clientHeight * sc.scale | 0);
       gl.viewport(0, 0, cv.width, cv.height);
     };
-    sc.draw = function (time) { gl.uniform2f(sc.uR, cv.width, cv.height); gl.uniform1f(sc.uT, time); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); };
+    sc.draw = function (time) { gl.uniform2f(sc.uR, cv.width, cv.height); gl.uniform1f(sc.uT, time * sc.speed); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); };
     sc.size();
     new IntersectionObserver(function (e) { sc.vis = e[0].isIntersecting; tick(); }).observe(cv);
     scenes.push(sc);
@@ -165,7 +169,7 @@
   var clock = 12, last = null, raf = 0, boost = 0, lastY = window.scrollY;
   /* Scrolling briefly speeds the motion up */
   window.addEventListener('scroll', function () {
-    var y = window.scrollY; boost = Math.min(boost + Math.abs(y - lastY) / 80, 3); lastY = y;
+    var y = window.scrollY; boost = Math.min(boost + Math.abs(y - lastY) / 160, 1); lastY = y;
   }, { passive: true });
   function frame(now) {
     raf = 0;
@@ -192,6 +196,22 @@
     c.classList.remove('on'); c.classList.add('off'); n.classList.remove('off'); n.classList.add('on');
     setTimeout(function () { c.classList.remove('off'); }, 500);
   }, 1700);
+
+  /* Hero cycling word: loops through the words in data-cycle. The page HTML holds the first
+     word, so search engines get one clean sentence. An OS "reduce motion" setting shows a still frame. */
+  var cyc = document.querySelector('[data-cycle]');
+  if (cyc) {
+    var list = cyc.getAttribute('data-cycle').split('|'), ci = 0;
+    setInterval(function () {
+      if (still() || document.hidden) return;
+      cyc.classList.remove('cyc-in'); cyc.classList.add('cyc-out');
+      setTimeout(function () {
+        ci = (ci + 1) % list.length;
+        cyc.textContent = list[ci];
+        cyc.classList.remove('cyc-out'); void cyc.offsetWidth; cyc.classList.add('cyc-in');
+      }, 280);
+    }, 1800);
+  }
 
   if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', function () { drawAll(); tick(); });
   tick();

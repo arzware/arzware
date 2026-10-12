@@ -1,5 +1,5 @@
 <a href="https://arzware.net">
-  <img src=".github/profile/banner.svg" alt="Arzware: AI can do almost anything. We make sure it does good." width="100%">
+  <img src="docs/hero.gif" alt="Arzware: AI can now write, answer, sell, reply, plan. Knowing what it should do still takes research." width="100%">
 </a>
 
 <p align="center">
