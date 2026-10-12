@@ -5,9 +5,12 @@ The Arzware company website. Static, no dependencies, hosted on Cloudflare.
 ## Build and preview
 
 ```sh
-node build.mjs                                  # writes dist/
-python3 -m http.server 8080 --directory dist    # preview at http://localhost:8080
+npm run dev        # http://localhost:8080 — rebuilds on save and reloads the browser
+npm run build      # writes dist/ once
 ```
+
+`npm run dev` is `dev.mjs`: a dependency-free watcher + static server. It watches `src/`, `public/` and `build.mjs`,
+reruns the build on every save and live-reloads open tabs. Use `node dev.mjs 3000` for another port.
 
 ## Publish (Cloudflare Pages, about 5 minutes)
 
@@ -44,7 +47,7 @@ Placeholders available in any page or partial: `{{wa}}` (WhatsApp link with pref
 
 - Unique title and meta description per page (`<!--meta {...} -->` at the top of each page; service pages from `src/data/services.mjs`).
 - Canonical URLs, Open Graph and Twitter cards with `og-image.png` (1200 × 630).
-- Structured data: `ProfessionalService` on every page, `WebSite` and `FAQPage` on Home, `Service` and `FAQPage` on service pages, `BreadcrumbList` on inner pages.
+- Structured data: `ProfessionalService` on every page, `WebSite` on Home, `Service` and `FAQPage` on service pages, `BreadcrumbList` on inner pages.
 - `sitemap.xml` and `robots.txt` generated at build; the 404 page is `noindex`.
 
 ## Rules the copy follows

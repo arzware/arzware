@@ -31,18 +31,17 @@
 
   var HOME = { name: 'Beirut', lat: 33.89, lon: 35.5 };
   var CITIES = [
-    { name: 'Dubai', lat: 25.2, lon: 55.27, label: 'right' }, { name: 'Abu Dhabi', lat: 24.45, lon: 54.38 },
-    { name: 'Riyadh', lat: 24.71, lon: 46.68, label: 'below' }, { name: 'Jeddah', lat: 21.49, lon: 39.19 },
-    { name: 'Dammam', lat: 26.43, lon: 50.1 }, { name: 'Doha', lat: 25.29, lon: 51.53 },
-    { name: 'Kuwait City', lat: 29.38, lon: 47.98 }, { name: 'Manama', lat: 26.23, lon: 50.59 },
-    { name: 'Muscat', lat: 23.59, lon: 58.41 }, { name: 'Amman', lat: 31.95, lon: 35.93 },
-    { name: 'Baghdad', lat: 33.31, lon: 44.37 }, { name: 'Cairo', lat: 30.04, lon: 31.24 }
+    { name: 'Riyadh', lat: 24.71, lon: 46.68, label: 'below' },
+    { name: 'Dubai', lat: 25.2, lon: 55.27, label: 'right' },
+    { name: 'Jeddah', lat: 21.49, lon: 39.19, label: 'left' },
+    { name: 'Doha', lat: 25.29, lon: 51.53 },
+    { name: 'Kuwait City', lat: 29.38, lon: 47.98 }
   ];
   var home = vec(HOME.lat, HOME.lon);
   CITIES.forEach(function (c, i) {
     c.v = vec(c.lat, c.lon);
     var d = Math.acos(Math.max(-1, Math.min(1, home[0] * c.v[0] + home[1] * c.v[1] + home[2] * c.v[2])));
-    c.ang = d; c.offset = i * 0.37; c.speed = 0.22 + (i % 4) * 0.025;
+    c.ang = d; c.offset = i * 0.9; c.speed = 1 / 4.5;
   });
 
   function slerp(a, b, ang, t) {
@@ -51,12 +50,12 @@
     return [a[0] * wa + b[0] * wb, a[1] * wa + b[1] * wb, a[2] * wa + b[2] * wb];
   }
 
-  var W, H, R, CX, CY, dpr;
+  var W, H, R, RS, CX, CY, dpr, ZOOM = 1.75;
   function size() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     var w = cv.clientWidth, h = cv.clientHeight;
     cv.width = Math.max(1, w * dpr | 0); cv.height = Math.max(1, h * dpr | 0);
-    W = cv.width; H = cv.height; R = Math.min(W, H) * 0.48; CX = W / 2; CY = H * 0.5;
+    W = cv.width; H = cv.height; R = Math.min(W, H) * 0.42; RS = R * ZOOM; CX = W / 2; CY = H * 0.5;
   }
 
   var lon0, sinT, cosT;
@@ -64,67 +63,70 @@
     var c = Math.cos(-lon0 * RAD), s = Math.sin(-lon0 * RAD);
     var x = v[0] * c + v[2] * s, z = -v[0] * s + v[2] * c, y = v[1];
     var y2 = y * cosT - z * sinT, z2 = y * sinT + z * cosT, k = lift || 1;
-    return [CX + R * x * k, CY - R * y2 * k, z2];
+    return [CX + RS * x * k, CY - RS * y2 * k, z2];
   }
 
   function draw(t) {
-    lon0 = 42 + Math.sin(t * 0.12) * 8;
-    var tilt = 27 * RAD; sinT = Math.sin(tilt); cosT = Math.cos(tilt);
+    lon0 = 45 + Math.sin(t * 0.07) * 7;
+    var tilt = (27 + Math.sin(t * 0.05) * 2) * RAD; sinT = Math.sin(tilt); cosT = Math.cos(tilt);
     ctx.clearRect(0, 0, W, H);
 
     // atmosphere glow
-    var g = ctx.createRadialGradient(CX, CY, R * 0.9, CX, CY, R * 1.25);
-    g.addColorStop(0, 'rgba(255,178,63,0.10)'); g.addColorStop(1, 'rgba(255,178,63,0)');
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(CX, CY, R * 1.25, 0, 7); ctx.fill();
+    var g = ctx.createRadialGradient(CX, CY, R * 0.96, CX, CY, R * 1.18);
+    g.addColorStop(0, 'rgba(94,200,190,0.16)'); g.addColorStop(.45, 'rgba(94,200,190,0.05)'); g.addColorStop(1, 'rgba(94,200,190,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(CX, CY, R * 1.18, 0, 7); ctx.fill();
     // sphere
     var s = ctx.createRadialGradient(CX - R * 0.35, CY - R * 0.4, R * 0.1, CX, CY, R);
-    s.addColorStop(0, '#1d3c41'); s.addColorStop(1, '#0b1c1f');
+    s.addColorStop(0, '#173539'); s.addColorStop(1, '#0a171a');
     ctx.fillStyle = s; ctx.beginPath(); ctx.arc(CX, CY, R, 0, 7); ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = dpr; ctx.stroke();
+    ctx.save(); ctx.beginPath(); ctx.arc(CX, CY, R - dpr, 0, 7); ctx.clip();
 
     // land dots, batched into a few paths by colour and brightness (one fill per bucket)
-    var dr = Math.max(1, R / 260), B = 6, cool = [], warm = [];
+    var dr = Math.max(1, RS / 300), B = 6, cool = [], warm = [];
     for (var b = 0; b < B; b++) { cool.push(new Path2D()); warm.push(new Path2D()); }
     for (var i = 0; i < dots.length; i++) {
       var d = dots[i], p = rot(d);
       if (p[2] <= 0) continue;
-      var bi = Math.min(B - 1, p[2] * B | 0);
-      (d[5] > 0.35 ? warm : cool)[bi].rect(p[0] - dr, p[1] - dr, dr * 2, dr * 2);
+      var bi = Math.min(B - 1, p[2] * B | 0), path = (d[5] > 0.5 ? warm : cool)[bi];
+      path.moveTo(p[0] + dr, p[1]); path.arc(p[0], p[1], dr, 0, 6.2832);
     }
     for (var q = 0; q < B; q++) {
       var z = (q + 0.5) / B;
-      ctx.fillStyle = 'rgba(205,228,224,' + (0.14 + 0.5 * z) + ')'; ctx.fill(cool[q]);
-      ctx.fillStyle = 'rgba(255,205,140,' + (0.35 + 0.6 * z) + ')'; ctx.fill(warm[q]);
+      ctx.fillStyle = 'rgba(170,215,208,' + (0.08 + 0.38 * z) + ')'; ctx.fill(cool[q]);
+      ctx.fillStyle = 'rgba(255,190,110,' + (0.22 + 0.5 * z) + ')'; ctx.fill(warm[q]);
     }
 
-    // arcs
-    var hp = rot(home);
+    // arcs: Beirut to each city in turn
+    var hp = rot(home), CYCLE = CITIES.length * 0.9 / (1 / 4.5) ;
     CITIES.forEach(function (c) {
-      var lift = 0.08 + c.ang * 1.0, N = 40, pts = [];
+      var lift = 0.03 + c.ang * 0.9, N = 48, pts = [];
       for (var j = 0; j <= N; j++) { var u = j / N, v = slerp(home, c.v, c.ang, u); pts.push(rot(v, 1 + lift * Math.sin(Math.PI * u))); }
-      // faint full path
-      ctx.strokeStyle = 'rgba(255,178,63,0.16)'; ctx.lineWidth = 1.2 * dpr; ctx.beginPath();
-      pts.forEach(function (q, j) { j ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke();
-      // travelling pulse
-      var prog = reduce ? 1 : ((t * c.speed + c.offset) % 1.6);
-      var head = Math.min(prog, 1), tail = Math.max(0, head - 0.4);
-      if (prog <= 1.05 || reduce) {
-        var a = Math.floor(tail * N), b = Math.ceil(head * N);
-        for (var k = a; k < b; k++) {
-          var f = (k - a) / Math.max(1, b - a);
-          ctx.strokeStyle = 'rgba(255,178,63,' + (reduce ? 0.8 : 0.15 + 0.85 * f) + ')';
-          ctx.lineWidth = (1.4 + 1.8 * f) * dpr; ctx.beginPath();
+      ctx.strokeStyle = 'rgba(255,178,63,0.32)'; ctx.lineWidth = 1.2 * dpr; ctx.setLineDash([2 * dpr, 5 * dpr]); ctx.beginPath();
+      pts.forEach(function (q, j) { j ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.stroke(); ctx.setLineDash([]);
+      var prog = reduce ? 1 : (((t + c.offset * 4.5) % CYCLE) / 4.5) * 1.6 - 0.1;
+      if (reduce || (prog > 0 && prog < 1.6)) {
+        var head = Math.min(Math.max(prog, 0), 1), tail = Math.max(0, head - 0.55);
+        var A = Math.floor(tail * N), Bn = Math.ceil(head * N);
+        if (prog < 1.35 || reduce) for (var k = A; k < Bn; k++) {
+          var f = (k - A) / Math.max(1, Bn - A), fade = prog > 1 && !reduce ? Math.max(0, 1 - (prog - 1) / 0.35) : 1;
+          ctx.strokeStyle = 'rgba(255,190,90,' + ((reduce ? 0.7 : 0.1 + 0.9 * f) * fade) + ')';
+          ctx.lineWidth = (1.2 + 2.4 * f) * dpr; ctx.lineCap = 'round'; ctx.beginPath();
           ctx.moveTo(pts[k][0], pts[k][1]); ctx.lineTo(pts[k + 1][0], pts[k + 1][1]); ctx.stroke();
         }
-        if (!reduce && prog < 1) { var hq = pts[Math.round(head * N)]; ctx.fillStyle = '#ffe2ad'; ctx.beginPath(); ctx.arc(hq[0], hq[1], 2.6 * dpr, 0, 7); ctx.fill(); }
+        if (!reduce && prog < 1) {
+          var hq = pts[Math.round(head * N)], gl = ctx.createRadialGradient(hq[0], hq[1], 0, hq[0], hq[1], 10 * dpr);
+          gl.addColorStop(0, 'rgba(255,226,173,0.9)'); gl.addColorStop(1, 'rgba(255,226,173,0)');
+          ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(hq[0], hq[1], 10 * dpr, 0, 7); ctx.fill();
+          ctx.fillStyle = '#fff3dc'; ctx.beginPath(); ctx.arc(hq[0], hq[1], 2.2 * dpr, 0, 7); ctx.fill();
+        }
       }
-      // city + landing ring
       var cp = rot(c.v);
       if (cp[2] > 0) {
         if (!reduce && prog > 1 && prog < 1.6) {
-          var r = (prog - 1) / 0.6; ctx.strokeStyle = 'rgba(255,111,91,' + (1 - r) + ')'; ctx.lineWidth = 1.5 * dpr;
-          ctx.beginPath(); ctx.arc(cp[0], cp[1], (3 + 14 * r) * dpr, 0, 7); ctx.stroke();
+          var r = (prog - 1) / 0.6; ctx.strokeStyle = 'rgba(255,111,91,' + (0.9 * (1 - r)) + ')'; ctx.lineWidth = 1.5 * dpr;
+          ctx.beginPath(); ctx.arc(cp[0], cp[1], (3 + 16 * r) * dpr, 0, 7); ctx.stroke();
         }
+        ctx.fillStyle = 'rgba(10,23,26,0.9)'; ctx.beginPath(); ctx.arc(cp[0], cp[1], 4.4 * dpr, 0, 7); ctx.fill();
         ctx.fillStyle = '#ff6f5b'; ctx.beginPath(); ctx.arc(cp[0], cp[1], 2.8 * dpr, 0, 7); ctx.fill();
         if (c.label) label(c.name, cp, c.label);
       }
@@ -132,12 +134,15 @@
 
     // Beirut
     if (hp[2] > 0) {
-      var pr = reduce ? 0.5 : (t * 0.6) % 1;
+      var pr = reduce ? 0.5 : (t * 0.45) % 1;
       ctx.strokeStyle = 'rgba(255,178,63,' + (1 - pr) + ')'; ctx.lineWidth = 2 * dpr;
-      ctx.beginPath(); ctx.arc(hp[0], hp[1], (5 + 18 * pr) * dpr, 0, 7); ctx.stroke();
-      ctx.fillStyle = '#ffb23f'; ctx.beginPath(); ctx.arc(hp[0], hp[1], 5 * dpr, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.arc(hp[0], hp[1], (5 + 14 * pr) * dpr, 0, 7); ctx.stroke();
+      ctx.fillStyle = 'rgba(10,23,26,0.9)'; ctx.beginPath(); ctx.arc(hp[0], hp[1], 7 * dpr, 0, 7); ctx.fill();
+      ctx.fillStyle = '#ffb23f'; ctx.beginPath(); ctx.arc(hp[0], hp[1], 4.6 * dpr, 0, 7); ctx.fill();
       label(HOME.name, hp, 'home');
     }
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(160,230,220,0.18)'; ctx.lineWidth = 1.2 * dpr; ctx.beginPath(); ctx.arc(CX, CY, R, 0, 7); ctx.stroke();
   }
 
   function label(text, p, where) {
@@ -148,8 +153,10 @@
     var w = ctx.measureText(text).width, x = p[0], y = p[1];
     if (strong) { x -= w + 12 * dpr; y -= 2 * dpr; }
     else if (where === 'below') { x -= w / 2; y += 14 * dpr; }
+    else if (where === 'left') { x -= w + 9 * dpr; }
+    else if (where === 'above') { x -= w / 2; y -= 14 * dpr; }
     else { x += 9 * dpr; }
-    ctx.fillText(text, x, y);
+    ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 6 * dpr; ctx.fillText(text, x, y); ctx.shadowBlur = 0;
   }
 
   size();
@@ -159,7 +166,7 @@
   if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe(cv);
   var last = 0;
   (function frame(now) {
-    if (visible && !document.hidden && now - last > 32) { last = now; draw((now - t0) / 1000); }
+    if (visible && !document.hidden && now - last > 15) { last = now; draw((now - t0) / 1000); }
     requestAnimationFrame(frame);
   })(t0);
 })();
