@@ -109,7 +109,7 @@
 
   var N = 'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}' +
     'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),u.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),u.x),u.y);}' +
-    'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*n(p);p*=2.03;a*=.5;}return v;}';
+    'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<3;i++){v+=a*n(p);p*=2.03;a*=.5;}return v;}';
   /* Ribbons: 4 flowing bands with light glints racing along them and drifting sparks */
   function ribbon(fade) {
     return N + 'void main(){vec2 uv=gl_FragCoord.xy/r;float ar=r.x/r.y;vec2 p=vec2(uv.x*ar,uv.y);float tt=t*.55;' +
@@ -152,7 +152,8 @@
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     var sc = { cv: cv, gl: gl, uR: gl.getUniformLocation(pr, 'r'), uT: gl.getUniformLocation(pr, 't'), vis: true,
-      scale: /^ribbon/.test(cv.getAttribute('data-gl')) ? 0.6 : 1,
+      /* The hero background is a soft blur, so it renders at 40% resolution (much less GPU work). */
+      scale: /^ribbon/.test(cv.getAttribute('data-gl')) ? 0.4 : 1,
       /* The hero background runs slower so the moving headline word stays the focus. */
       speed: /^ribbon/.test(cv.getAttribute('data-gl')) ? 0.7 : 1 };
     sc.size = function () {
@@ -171,8 +172,12 @@
   window.addEventListener('scroll', function () {
     var y = window.scrollY; boost = Math.min(boost + Math.abs(y - lastY) / 160, 1); lastY = y;
   }, { passive: true });
+  var lastDraw = 0;
   function frame(now) {
     raf = 0;
+    /* 30 frames a second is plenty for slow-moving backgrounds and halves the work. */
+    if (now - lastDraw < 32) { tick(); return; }
+    lastDraw = now;
     if (last !== null) { var dt = Math.min((now - last) / 1000, 0.1); clock += dt * (1 + boost); boost *= Math.pow(0.05, dt); }
     last = now;
     scenes.forEach(function (sc) { if (sc.vis) sc.draw(clock); });

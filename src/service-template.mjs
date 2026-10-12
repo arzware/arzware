@@ -62,20 +62,20 @@ const mocks = {
 
 export function renderService(s) {
   const bySlug = Object.fromEntries(services.map((x) => [x.slug, x]));
-  const faq = [['How much does it cost?', PRICE_ANSWER], ...s.faq];
+  const faq = [['How much does it cost?', s.price || PRICE_ANSWER], ...s.faq];
   const content = `
 <section class="page-hero" data-hero="${s.hero[0]}" data-art="${s.hero[1]}" data-tint="${s.hero[2]}">
   <div class="wrap">
     <p class="label">${esc(s.name)}</p>
     <h1>${esc(s.title)}</h1>
     <p class="lead">${esc(s.sub)}</p>
-    <a class="link-arrow down" href="#get">What you get</a>
+    <a class="link-arrow down" href="#get">${esc(s.getLabel || "What's included")}</a>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><p class="label">Is this for you?</p><h2>You might recognise this.</h2></div>
+    <div class="section-head"><p class="label">Is this for you?</p><h2>${esc(s.signsTitle)}</h2></div>
     <div class="signs">
       ${s.signs.map((x) => `<div class="sign rv">${check}<p>${esc(x)}</p></div>`).join('\n      ')}
     </div>
@@ -85,9 +85,9 @@ export function renderService(s) {
 <section class="section bg-warm" id="get">
   <div class="wrap split">
     <div class="stack">
-      <p class="label">What you get</p>
-      <h2>What we set up for you.</h2>
-      <p class="muted">Every project starts with a written scope, so you know exactly what's included.</p>
+      <p class="label">${esc(s.getLabel || "What's included")}</p>
+      <h2>${esc(s.getTitle)}</h2>
+      <p class="muted">${esc(s.getNote || 'Before work starts, you get a written scope: what is included, what is not, and the price.')}</p>
     </div>
     <ol class="numbered">
       ${s.get.map((x) => `<li>${esc(x)}</li>`).join('\n      ')}
@@ -97,7 +97,7 @@ export function renderService(s) {
 
 <section class="section">
   <div class="wrap">
-    <div class="section-head"><p class="label">How it works</p><h2>We look before we build.</h2></div>
+    <div class="section-head"><p class="label">How it works</p><h2>${esc(s.stepsTitle)}</h2></div>
     <ol class="steps">
       ${s.steps.map(([t, p]) => `<li class="rv"><h3>${esc(t)}</h3><p>${esc(p)}</p></li>`).join('\n      ')}
     </ol>
@@ -106,21 +106,21 @@ export function renderService(s) {
 
 <section class="section tight">
   <div class="wrap split">
-    <div class="mock rv">${mocks[s.mock]}</div>
+    <div class="stack"><div class="mock rv">${mocks[s.mock]}</div><p class="micro">Illustration, not a client's account.</p></div>
     <div class="stack">
       <p class="label">Your data</p>
-      <h2>You stay in control.</h2>
+      <h2>${esc(s.dataTitle || 'Your accounts stay yours.')}</h2>
       <div class="data-note">${lock}<p>${esc(s.data)}</p></div>
-      <p class="label">What it works with</p>
+      <p class="label">${esc(s.toolsLabel || 'What it works with')}</p>
       <div class="tools">${s.tools.map((t) => `<span>${esc(t)}</span>`).join('')}</div>
-      <p class="micro">Tools we set up. Not a partnership or endorsement.</p>
+      ${s.toolsNote === false ? '' : '<p class="micro">Product names are tools we work with. They do not mean a partnership or endorsement.</p>'}
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap split">
-    <div class="stack"><p class="label">Questions</p><h2>What people usually ask.</h2></div>
+    <div class="stack"><p class="label">Questions</p><h2>Common questions.</h2></div>
     <div class="faq">
       ${faq.map(([q, a]) => `<details><summary>${esc(q)}</summary><div><p>${esc(a)}</p></div></details>`).join('\n      ')}
     </div>
@@ -129,7 +129,7 @@ export function renderService(s) {
 
 <section class="section tight">
   <div class="wrap">
-    <div class="section-head"><p class="label">Related</p><h2>Often set up together.</h2></div>
+    <div class="section-head"><p class="label">Related</p><h2>${esc(s.relatedTitle || 'Often set up together.')}</h2></div>
     <div class="related">
       ${s.related.map((r) => bySlug[r]).map((r) => `<a class="door" href="/services/${r.slug}/"><span class="label">${esc(r.group)}</span><span class="v">${esc(r.name)}</span><p>${esc(r.short)}</p></a>`).join('\n      ')}
     </div>
@@ -145,7 +145,7 @@ export function renderService(s) {
     { '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ];
-  return { meta: { title: `${s.name} · Arzware`, description: s.description, nav: 'services' }, content, jsonld };
+  return { meta: { crumb: s.name, title: `${s.seoTitle || s.name} · Arzware`, description: s.description, nav: 'services' }, content, jsonld };
 }
 
 export { services };
