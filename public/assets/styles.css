@@ -809,7 +809,8 @@ html.azl-on{overflow:hidden}
 .azl-tag{animation:azl-tag calc(var(--azl-speed,1)*320ms) cubic-bezier(.2,.8,.2,1) calc(var(--azl-speed,1)*720ms) both}
 .azl.azl-leave{animation:azl-leave calc(var(--azl-speed,1)*180ms) ease-out both}
 .azl-skip .azl{display:none}
-@media (prefers-reduced-motion:reduce){.azl{display:none}}
+/* Reduced motion: the logo shows finished and still, then the loader is removed once the page is ready. */
+@media (prefers-reduced-motion:reduce){.azl *{animation:none!important}}
 @keyframes azl-drib{from{stroke-dashoffset:715.2}to{stroke-dashoffset:0}}
 @keyframes azl-darch{from{stroke-dashoffset:469.7}to{stroke-dashoffset:0}}
 @keyframes azl-dcres{from{stroke-dashoffset:351.2}to{stroke-dashoffset:0}}

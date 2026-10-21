@@ -1,21 +1,27 @@
-/* arzware.net intro loader (home page).
-   Runs in <head> before the page paints:
-   - plays once per browser session (sessionStorage), then is skipped on later page views;
-   - plays the logo animation, then holds on the finished logo until the page has fully
-     loaded (window load + web fonts), and only then fades out; capped so a slow
-     connection never waits more than MAX_MS;
-   - a click, tap or key press skips it; reduced-motion users never see it;
-   - without JavaScript the CSS timeline still hides it after about 1.5s. */
+/* arzware.net intro loader (home page). Runs in <head>, before the page paints.
+   When it plays:
+   - every time the home page is opened or reloaded;
+   - not when the visitor clicks through to Home from another page of this site;
+   - add ?loader to the URL to force it (handy for testing).
+   How it ends: it plays the logo animation, then holds on the finished logo until the
+   page has fully loaded (window load + web fonts) and fades out, capped at MAX_MS.
+   A click, tap or key press skips it. With reduced motion the logo shows still, and the
+   loader is removed as soon as the page is ready. Without JavaScript, the CSS timeline
+   hides it after about 1.5 s. */
 (function () {
-  var root = document.documentElement, KEY = 'azl-seen', MAX_MS = 4000;
+  var root = document.documentElement, MAX_MS = 4000, start = Date.now();
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  try {
-    if (sessionStorage.getItem(KEY)) root.classList.add('azl-skip');
-    else sessionStorage.setItem(KEY, '1');
-  } catch (e) {}
-  if (!root.classList.contains('azl-skip') && !reduce) root.classList.add('azl-on');
 
-  var start = Date.now();
+  var force = /[?&]loader\b/.test(location.search), internal = false;
+  try {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var reload = nav && nav.type === 'reload';
+    var ref = document.referrer ? new URL(document.referrer) : null;
+    internal = !reload && !!ref && ref.origin === location.origin && ref.pathname !== location.pathname;
+  } catch (e) {}
+  if (internal && !force) root.classList.add('azl-skip');
+  else root.classList.add('azl-on');
+
   var pageReady = new Promise(function (resolve) {
     function fonts() { (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(resolve, resolve); }
     if (document.readyState === 'complete') fonts();
@@ -24,32 +30,32 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     var el = document.getElementById('azl');
-    if (!el) { root.classList.remove('azl-on'); return; }
+    var finished = false;
     function cleanup() {
-      if (el.parentNode) el.parentNode.removeChild(el);
+      if (el && el.parentNode) el.parentNode.removeChild(el);
       root.classList.remove('azl-on');
       removeEventListener('pointerdown', skip, true);
       removeEventListener('keydown', skip, true);
     }
-    if (root.classList.contains('azl-skip') || reduce) return cleanup();
+    function skip() { if (reduce) return cleanup(); finished = true; el.classList.add('azl-leave'); }
+    if (!el || root.classList.contains('azl-skip')) return cleanup();
 
-    var speed = parseFloat(getComputedStyle(root).getPropertyValue('--azl-speed')) || 1;
-    var introMs = 1100 * speed, finished = false;
     function finish() {
       if (finished) return; finished = true;
-      el.classList.add('azl-done');
+      if (reduce) return cleanup();          // no fade with reduced motion
+      el.classList.add('azl-done');           // CSS fades it out; animationend removes it
     }
-    function skip() { finished = true; el.classList.add('azl-leave'); }
     el.addEventListener('animationend', function (e) {
       if (e.target === el && (el.classList.contains('azl-done') || el.classList.contains('azl-leave'))) cleanup();
     });
     addEventListener('pointerdown', skip, true);
     addEventListener('keydown', skip, true);
 
-    // Leave when BOTH the intro has played and the page is ready, or at the cap.
+    var speed = parseFloat(getComputedStyle(root).getPropertyValue('--azl-speed')) || 1;
+    var introMs = reduce ? 600 : 1100 * speed;
     var introDone = new Promise(function (r) { setTimeout(r, Math.max(0, introMs - (Date.now() - start))); });
     Promise.all([introDone, pageReady]).then(finish);
     setTimeout(finish, MAX_MS);
-    setTimeout(cleanup, MAX_MS + 1500);
+    setTimeout(cleanup, MAX_MS + 1500);       // safety net
   });
 })();
