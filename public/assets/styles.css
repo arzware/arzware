@@ -535,7 +535,8 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 :root { --coral-deep: #b9402f; }
 .hero h1.slogan { max-width: 15ch; font-size: clamp(2.6rem, 1rem + 5.4vw, 5.8rem); }
 .hero h1.slogan .turn { display: block; color: var(--coral-deep); }
-.hero h1.slogan .hl { color: var(--coral-deep); }
+.hero h1.slogan .hl { color: var(--coral-deep); display: inline-block; perspective: 700px; }
+.footer-slogan { font-family: var(--display); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em; color: var(--ink); }
 .hero h1.slogan .turn .word span { color: inherit; }
 
 /* Thesis: two columns. Headline with a coloured turn on the left; statement, then a quieter follow-up on the right */
