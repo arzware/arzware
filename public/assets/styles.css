@@ -531,6 +531,16 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .site-footer .brand .wave { stroke: var(--saffron); }
 .nav a.nav-cta, .nav a.nav-cta:hover { color: #fff; }
 .menu-btn { border-radius: var(--r-sm); }
+/* Hamburger icon: three lines that turn into an X when the menu is open */
+.menu-btn { width: 44px; padding: 0; justify-content: center; }
+.menu-btn .bars { position: relative; display: block; width: 20px; height: 14px; }
+.menu-btn .bars i { position: absolute; inset-inline: 0; height: 2px; border-radius: 2px; background: var(--ink); transition: transform .25s var(--ease), opacity .2s, top .25s var(--ease); }
+.menu-btn .bars i:nth-child(1) { top: 0; }
+.menu-btn .bars i:nth-child(2) { top: 6px; }
+.menu-btn .bars i:nth-child(3) { top: 12px; }
+.menu-btn[aria-expanded="true"] .bars i:nth-child(1) { top: 6px; transform: rotate(45deg); }
+.menu-btn[aria-expanded="true"] .bars i:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] .bars i:nth-child(3) { top: 6px; transform: rotate(-45deg); }
 .cta-band .btn-secondary { background: rgba(15, 36, 39, .1); }
 .word span { justify-self: start; width: max-content; }
 .page-hero h1 { font-size: clamp(2.4rem, 1.5rem + 3vw, 4rem); max-width: 20ch; }

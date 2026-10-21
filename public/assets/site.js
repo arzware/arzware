@@ -19,13 +19,13 @@
     if (!header || !menuBtn) return;
     header.classList.remove('open');
     menuBtn.setAttribute('aria-expanded', 'false');
-    menuBtn.textContent = 'Menu';
+    menuBtn.setAttribute('aria-label', 'Open menu');
   }
   if (menuBtn && header) {
     menuBtn.addEventListener('click', function () {
       var open = header.classList.toggle('open');
       menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      menuBtn.textContent = open ? 'Close' : 'Menu';
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       // Move keyboard focus into the menu that just opened (the button sits after the nav in the page).
       if (open) { var first = document.querySelector('#site-nav a'); if (first) first.focus(); }
     });
