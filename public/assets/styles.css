@@ -146,6 +146,8 @@ ul, ol { margin: 0; }
   radial-gradient(50% 45% at 95% 20%, rgba(122, 90, 248, .22), transparent 60%); }
 .hero .wrap { min-height: clamp(480px, 68svh, 720px); display: flex; flex-direction: column; justify-content: center; gap: var(--s-5); padding-block: calc(var(--s-8) + var(--s-2)) var(--s-8); }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: .6rem; margin: 0 0 calc(var(--s-2) * -1); font: 600 clamp(1rem, .95rem + .3vw, 1.2rem)/1.2 var(--display); letter-spacing: -0.01em; color: var(--ink-2); }
+.hero-note { max-width: 34rem; margin-block-start: var(--s-3); padding-block-start: var(--s-4); border-block-start: 1px solid rgba(15, 36, 39, .16); font-size: var(--t-small); line-height: 1.55; color: var(--ink-2); }
+.hero-note a { color: var(--ink); font-weight: 600; text-decoration-color: var(--saffron); text-decoration-thickness: 2px; }
 .hero-eyebrow::before { content: ""; width: 1.75rem; height: 2px; background: var(--saffron); }
 .hero h1 { font-size: clamp(2.8rem, 1rem + 6vw, 6.2rem); line-height: 1.02; letter-spacing: -0.045em; max-width: 13ch; }
 .hero h1 .second { display: block; color: var(--ink-2); }
