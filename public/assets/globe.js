@@ -84,14 +84,8 @@
     var ctx = lctx;
     ctx.clearRect(0, 0, W, H);
 
-    // atmosphere glow
-    var g = ctx.createRadialGradient(CX, CY, R * 0.96, CX, CY, R * 1.18);
-    g.addColorStop(0, 'rgba(94,200,190,0.16)'); g.addColorStop(.45, 'rgba(94,200,190,0.05)'); g.addColorStop(1, 'rgba(94,200,190,0)');
-    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(CX, CY, R * 1.18, 0, 7); ctx.fill();
-    // sphere
-    var s = ctx.createRadialGradient(CX - R * 0.35, CY - R * 0.4, R * 0.1, CX, CY, R);
-    s.addColorStop(0, '#173539'); s.addColorStop(1, '#0a171a');
-    ctx.fillStyle = s; ctx.beginPath(); ctx.arc(CX, CY, R, 0, 7); ctx.fill();
+    // sphere: flat, no glow or shading
+    ctx.fillStyle = '#13292c'; ctx.beginPath(); ctx.arc(CX, CY, R, 0, 7); ctx.fill();
     ctx.save(); ctx.beginPath(); ctx.arc(CX, CY, R - dpr, 0, 7); ctx.clip();
 
     // land dots, batched into a few paths by colour and brightness (one fill per bucket)
@@ -131,9 +125,8 @@
           ctx.moveTo(pts[k][0], pts[k][1]); ctx.lineTo(pts[k + 1][0], pts[k + 1][1]); ctx.stroke();
         }
         if (!reduce && prog < 1) {
-          var hq = pts[Math.round(head * N)], gl = ctx.createRadialGradient(hq[0], hq[1], 0, hq[0], hq[1], 10 * dpr);
-          gl.addColorStop(0, 'rgba(255,226,173,0.9)'); gl.addColorStop(1, 'rgba(255,226,173,0)');
-          ctx.fillStyle = gl; ctx.beginPath(); ctx.arc(hq[0], hq[1], 10 * dpr, 0, 7); ctx.fill();
+          var hq = pts[Math.round(head * N)];
+          ctx.fillStyle = '#ffd99a'; ctx.beginPath(); ctx.arc(hq[0], hq[1], 3 * dpr, 0, 7); ctx.fill();
           ctx.fillStyle = '#fff3dc'; ctx.beginPath(); ctx.arc(hq[0], hq[1], 2.2 * dpr, 0, 7); ctx.fill();
         }
       }

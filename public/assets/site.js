@@ -111,18 +111,17 @@
     'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),u.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),u.x),u.y);}' +
     'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<3;i++){v+=a*n(p);p*=2.03;a*=.5;}return v;}';
   /* Ribbons: 4 flowing bands with light glints racing along them and drifting sparks */
+  // Hero ribbon: the site's one gradient. Three warm bands (saffron, coral, deep red-orange) on the flat
+  // off-white page colour; no violet, no sparkle particles.
   function ribbon(fade) {
-    return N + 'void main(){vec2 uv=gl_FragCoord.xy/r;float ar=r.x/r.y;vec2 p=vec2(uv.x*ar,uv.y);float tt=t*.55;' +
-      'vec3 bg=mix(vec3(.953,.965,.965),vec3(.992,.973,.945),1.-uv.y);vec3 col=bg;float side=smoothstep(.05,.6,uv.x);' +
-      'for(int k=0;k<4;k++){float fk=float(k);float c=.4+.1*fk+.16*sin(p.x*1.6+tt+fk*1.7)+.08*sin(p.x*3.3-tt*1.3+fk)+.06*(fbm(vec2(p.x*1.2,tt*.4+fk))-.5);' +
+    return N + 'void main(){vec2 uv=gl_FragCoord.xy/r;float ar=r.x/r.y;vec2 p=vec2(uv.x*ar,uv.y);float tt=t*.45;' +
+      'vec3 bg=vec3(.980,.973,.957);vec3 col=bg;float side=smoothstep(.05,.6,uv.x);' +
+      'for(int k=0;k<3;k++){float fk=float(k);float c=.42+.11*fk+.16*sin(p.x*1.6+tt+fk*1.7)+.08*sin(p.x*3.3-tt*1.3+fk)+.06*(fbm(vec2(p.x*1.2,tt*.4+fk))-.5);' +
       'float d=(p.y-c)*(4.+fk*1.5);float env=exp(-d*d*2.2)*smoothstep(.05,.55,uv.x+.1*fk);' +
       'float lines=.5+.5*sin((p.y-c)*190.+p.x*6.-tt*6.);float shade=.55+.45*sin((p.y-c)*14.+p.x*2.+tt*1.5);' +
-      'vec3 a=k==0?vec3(1.,.70,.25):(k==1?vec3(1.,.44,.38):(k==2?vec3(.43,.36,.99):vec3(.93,.3,.24)));vec3 hi=k==0?vec3(1.,.86,.55):(k==1?vec3(1.,.72,.62):(k==2?vec3(.72,.68,1.):vec3(1.,.6,.5)));' +
-      'vec3 rib=mix(a,hi,shade)*(.86+.14*lines);col=mix(col,rib,env*(k==2?.55:(k==3?.5:.85)));' +
-      'float g=fract(p.x*.45-t*(.35+.12*fk)+fk*.37);float glint=exp(-pow((g-.5)*14.,2.))*exp(-d*d*9.);col+=vec3(1.,.95,.88)*glint*.75*side;}' +
-      'vec2 q=p*vec2(1.,1.)+vec2(-t*.22,sin(p.x*2.+t*.6)*.05);for(int j=0;j<2;j++){float sc=14.+float(j)*10.;vec2 cell=floor(q*sc);vec2 f=fract(q*sc)-.5;' +
-      'float rn=h(cell+float(j)*7.);vec2 o=vec2(h(cell+3.1),h(cell+5.7))-.5;float tw=.5+.5*sin(t*4.+rn*40.);' +
-      'float dot=smoothstep(.09,.0,length(f-o*.6))*step(.82,rn)*tw;vec3 sp=rn>.94?vec3(.43,.36,.99):(rn>.88?vec3(1.,.44,.38):vec3(1.,.7,.25));col=mix(col,sp,dot*side*.9);}' +
+      'vec3 a=k==0?vec3(1.,.70,.25):(k==1?vec3(1.,.44,.36):vec3(.73,.25,.18));vec3 hi=k==0?vec3(1.,.84,.55):(k==1?vec3(1.,.68,.58):vec3(.88,.45,.36));' +
+      'vec3 rib=mix(a,hi,shade)*(.88+.12*lines);col=mix(col,rib,env*(k==2?.45:.6));' +
+      'float g=fract(p.x*.45-t*(.35+.12*fk)+fk*.37);float glint=exp(-pow((g-.5)*14.,2.))*exp(-d*d*9.);col+=vec3(1.,.95,.88)*glint*.25*side;}' +
       'col=mix(col,bg,smoothstep(' + fade + ',.25,uv.x)*.6);gl_FragColor=vec4(col,1.);}';
   }
   var SHADERS = {

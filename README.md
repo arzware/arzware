@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="https://arzware.net"><img alt="Website: arzware.net" src="https://img.shields.io/badge/Website-arzware.net-0F2427?style=for-the-badge&labelColor=FFB23F"></a>
-  <a href="https://cal.com/arzware"><img alt="Book a free call" src="https://img.shields.io/badge/Book_a_free_call-cal.com%2Farzware-0F2427?style=for-the-badge&labelColor=FF6F5B"></a>
-  <a href="mailto:support@arzware.net"><img alt="Email: support@arzware.net" src="https://img.shields.io/badge/Email-support%40arzware.net-0F2427?style=for-the-badge&labelColor=6D5DFC"></a>
+  <a href="https://cal.com/arzware"><img alt="Book a free call" src="https://img.shields.io/badge/Book_a_free_call-cal.com%2Farzware-0F2427?style=for-the-badge&labelColor=F2EDE4"></a>
+  <a href="mailto:support@arzware.net"><img alt="Email: support@arzware.net" src="https://img.shields.io/badge/Email-support%40arzware.net-0F2427?style=for-the-badge&labelColor=B9402F"></a>
 </p>
 
 ## Hi, we're Arzware
@@ -24,17 +24,17 @@ AI is coming to every business. Too often it arrives the wrong way: tools bought
 
 ## What we do
 
-| | Service | In one line |
-|---|---|---|
-| 🔍 | [Business diagnosis](https://arzware.net/services/business-diagnosis/) | See what's really holding your business back, with proof, before you spend on anything. |
-| 💬 | [WhatsApp assistants](https://arzware.net/services/whatsapp-assistants/) | Answer the same questions once, and stop losing orders in your chat. |
-| 📇 | [CRM setup](https://arzware.net/services/crm-setup/) | Every lead and customer in one place, with reminders so nobody falls through. |
-| 🧠 | [Google Workspace and AI setup](https://arzware.net/services/workspace-ai-setup/) | Professional email, shared files and AI tools your team will actually use. |
-| 🌐 | [Websites](https://arzware.net/services/websites/) | A website that brings you customers, not just one that exists. |
-| ☕ | [Café and restaurant package](https://arzware.net/services/cafe-restaurant-package/) | Get found, take orders and get paid, without stitching ten tools together yourself. |
-| 🧾 | [POS setup](https://arzware.net/services/pos-setup/) | Track orders, stock and sales without the guesswork. |
-| 🛡️ | [Monthly care plans](https://arzware.net/services/care-plans/) | Someone looking after your digital setup every month. |
-| 📱 | [Apps and custom software](https://arzware.net/services/apps-custom-software/) | When off-the-shelf tools aren't enough. |
+| Service | In one line |
+|---|---|
+| [Business diagnosis](https://arzware.net/services/business-diagnosis/) | See what's really holding your business back, with proof, before you spend on anything. |
+| [WhatsApp assistants](https://arzware.net/services/whatsapp-assistants/) | Answer the same questions once, and stop losing orders in your chat. |
+| [CRM setup](https://arzware.net/services/crm-setup/) | Every lead and customer in one place, with reminders so nobody falls through. |
+| [Google Workspace and AI setup](https://arzware.net/services/workspace-ai-setup/) | Professional email, shared files and AI tools your team will actually use. |
+| [Websites](https://arzware.net/services/websites/) | A website that brings you customers, not just one that exists. |
+| [Café and restaurant package](https://arzware.net/services/cafe-restaurant-package/) | Get found, take orders and get paid, without stitching ten tools together yourself. |
+| [POS setup](https://arzware.net/services/pos-setup/) | Track orders, stock and sales without the guesswork. |
+| [Monthly care plans](https://arzware.net/services/care-plans/) | Someone looking after your digital setup every month. |
+| [Apps and custom software](https://arzware.net/services/apps-custom-software/) | When off-the-shelf tools aren't enough. |
 
 → **[All services on arzware.net](https://arzware.net/services/)**
 
@@ -63,10 +63,10 @@ Some of our work is free, on purpose. **[Digital First Aid](https://arzware.net/
 
 The first conversation is free, and it's a business conversation, not a sales pitch.
 
-- 🗓️ **Book a call:** [cal.com/arzware](https://cal.com/arzware)
-- 💬 **WhatsApp:** [+961 81 901 378](https://wa.me/96181901378)
-- ✉️ **Email:** [support@arzware.net](mailto:support@arzware.net)
-- 🌐 **Website:** [arzware.net](https://arzware.net)
+- **Book a call:** [cal.com/arzware](https://cal.com/arzware)
+- **WhatsApp:** [+961 81 901 378](https://wa.me/96181901378)
+- **Email:** [support@arzware.net](mailto:support@arzware.net)
+- **Website:** [arzware.net](https://arzware.net)
 
 ---
 

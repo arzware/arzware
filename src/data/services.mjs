@@ -260,7 +260,7 @@ export const services = [
     tools: ['Your domain', 'Cloudflare', 'Google Search Console', 'Google Business Profile', 'WhatsApp Business'],
     faq: [
       ['Can you redesign our existing site?', 'Yes. We look at what works today before changing anything.'],
-      ['Can the site be in Arabic and English?', 'Yes. We plan both languages from the start. The Arabic is written and checked by a person, not machine-translated.'],
+      ['Can the site be in Arabic and English?', 'Yes. We plan both languages from the start. A native Arabic speaker writes and checks the Arabic.'],
       ['Who owns the website?', 'You do: the domain, the hosting account and the content.'],
     ],
     related: ['cafe-restaurant-package', 'care-plans'],
