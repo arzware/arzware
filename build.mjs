@@ -69,7 +69,7 @@ cpSync('public', OUT, { recursive: true });
 
 // Section rhythm: every light section gets white or cream, the opposite of the section above it.
 // Dark (bg-ink, proof), saffron (cta-section) and hero sections keep their own colour.
-const FIXED = ['hero', 'page-hero', 'bg-ink', 'proof', 'cta-section'];
+const FIXED = ['hero', 'page-hero', 'bg-ink', 'bg-saffron', 'bg-terracotta', 'bg-cedar', 'proof', 'cta-section'];
 const TONES = ['bg-white', 'bg-cream', 'bg-warm', 'bg-mist', 'bg-mist2', 'tight'];
 function cards(html) {
   return html.replace(/<section class="page-hero"([^>]*)>\s*<div class="wrap">([\s\S]*?)<\/div>\s*<\/section>/g, (_, attrs, inner) => heroCard(attrs, inner.trim()));
@@ -79,7 +79,7 @@ function rhythm(html) {
   return html.replace(/<section class="([^"]*)"/g, (m, cls) => {
     const list = cls.split(/\s+/).filter(Boolean);
     if (list.some((c) => FIXED.includes(c))) {
-      prev = list.includes('cta-section') ? 'saffron' : list.some((c) => c === 'hero' || c === 'page-hero') ? 'hero' : 'ink';
+      prev = list.includes('cta-section') || list.includes('bg-saffron') ? 'saffron' : list.includes('bg-terracotta') ? 'terracotta' : list.includes('bg-cedar') ? 'cedar' : list.some((c) => c === 'hero' || c === 'page-hero') ? 'hero' : 'ink';
       return m;
     }
     const tone = prev === 'white' ? 'cream' : 'white';

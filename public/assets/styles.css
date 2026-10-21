@@ -566,6 +566,42 @@ form.f { display: grid; gap: var(--s-4); }
 .notes li p { grid-column: 2; color: var(--ink-2); }
 @media (max-width: 700px) { .notes li { grid-template-columns: minmax(0, 1fr); } .notes li p { grid-column: 1; } }
 
+
+/* ---- Printed paper: fine ink grain on every section, like colour printed on real stock ---- */
+.section, .page-hero, .site-footer, .cta-section { background-image: url("/assets/grain-dark.svg"); background-size: 180px 180px; }
+.bg-ink, .bg-cedar, .bg-terracotta, .proof { background-image: url("/assets/grain-light.svg"); background-size: 180px 180px; }
+
+/* Colour bands (flat inks; one per section, never two the same in a row) */
+.bg-saffron { background-color: var(--saffron); color: var(--ink); }
+.bg-saffron .label, .bg-saffron .numbered li::before { color: var(--ink); }
+.bg-saffron .lead, .bg-saffron .micro, .bg-saffron .numbered li { color: var(--ink); }
+.bg-saffron .numbered, .bg-saffron .numbered li { border-color: rgba(15, 36, 39, .28); }
+.bg-saffron .micro a, .bg-saffron .link-arrow { color: var(--ink); }
+.bg-terracotta { background-color: var(--coral-deep); color: #fff; }
+.bg-terracotta h2, .bg-terracotta h3 { color: #fff; }
+.bg-terracotta .label { color: #ffe3c4; }
+.bg-terracotta .lead, .bg-terracotta p { color: rgba(255, 255, 255, .9); }
+.bg-terracotta .link-arrow, .bg-terracotta a { color: #fff; }
+.bg-terracotta .teaser { border-color: rgba(255, 255, 255, .3); }
+.bg-cedar { background-color: #1f4a35; color: #fff; }
+.bg-cedar h2, .bg-cedar h3 { color: #fff; }
+.bg-cedar .label { color: var(--saffron); }
+.bg-cedar .lead { color: rgba(255, 255, 255, .82); }
+.on-dark .link-arrow, .on-dark .link-arrow:hover { color: #fff; }
+
+/* Logo ribbon, redrawn in two flat inks with a slight print offset (misregistration) */
+.ribbon-mark { display: block; width: 100%; height: auto; overflow: visible; }
+.ribbon-mark .rm-1 { fill: var(--saffron); }
+.ribbon-mark .rm-2 { fill: var(--coral-deep); transform: translate(5px, -4px); mix-blend-mode: multiply; }
+.ribbon-mark .rm-3 { fill: var(--ink); transform: translate(-3px, 3px); }
+.on-dark .ribbon-mark .rm-2 { mix-blend-mode: normal; }
+.bg-terracotta .ribbon-mark .rm-1 { fill: var(--saffron); }
+.bg-terracotta .ribbon-mark .rm-2 { fill: #ffe3c4; }
+.bg-terracotta .ribbon-mark .rm-3 { fill: var(--ink); }
+.rm-small { width: 72px; margin-block-end: var(--s-4); }
+.rm-large { width: clamp(180px, 22vw, 300px); justify-self: end; }
+@media (max-width: 760px) { .rm-large { justify-self: start; width: 160px; } }
+
 /* ---- Intro loader (home page; markup in src/partials/loader.html, logic in assets/loader.js) ----
    Plays once per visit, holds on the logo until the page has fully loaded, then reveals it.
    --azl-speed scales the whole timeline (1 = 1.5s, 0.67 = about 1s).
