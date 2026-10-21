@@ -776,6 +776,10 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 @keyframes cycIn { 0% { transform: rotateX(-90deg); opacity: 0; } 60% { transform: rotateX(14deg); opacity: 1; } 100% { transform: rotateX(0); opacity: 1; } }
 .cycle::after { content: ""; position: absolute; inset-inline: 0; bottom: .02em; height: .08em; border-radius: 4px; background: var(--saffron); transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease); }
 .cycle::after { transform: scaleX(1); }
+/* The flipping word carries the headline: larger, heavier, with a thicker saffron underline. */
+.hero h1.slogan .cycle { font-size: 1.28em; font-weight: 700; letter-spacing: -0.05em; line-height: .9; }
+.hero h1.slogan .cycle::after { height: .1em; bottom: -.04em; }
+@media (max-width: 600px) { .hero h1.slogan .hl { display: block; white-space: nowrap; } }
 @media (prefers-reduced-motion: reduce) { .cycle.cyc-in, .cycle.cyc-out { animation: none; transform: none; opacity: 1; } }
 /* ---- Intro loader (home page; markup in src/partials/loader.html, logic in assets/loader.js) ----
    Plays once per visit, holds on the logo until the page has fully loaded, then reveals it.
