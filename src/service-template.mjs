@@ -2,7 +2,6 @@
 import { services, PRICE_ANSWER } from './data/services.mjs';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const check = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
 const lock = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 
 const mocks = {
@@ -15,7 +14,7 @@ const mocks = {
     <div class="doc-row"><span>05 Who does what</span><i></i></div>
     <div class="doc-row"><span>06 Next step</span><i></i></div></div>`,
   menu: `<div class="phone" role="img" aria-label="Illustration of a café menu on a phone">
-    <div class="top"><i>☕</i>Menu · open now</div>
+    <div class="top"><i>C</i>Menu · open now</div>
     <div class="doc-row"><span>Flat white</span><em>Order</em></div>
     <div class="doc-row"><span>Cardamom latte</span><em>Order</em></div>
     <div class="doc-row"><span>Za'atar croissant</span><em>Order</em></div>
@@ -38,7 +37,7 @@ const mocks = {
     <div class="doc-row"><span>Marketing</span><em>Everyone</em></div>
     <div class="doc-row hl"><span>AI rules</span><em>No customer data in public tools</em></div></div>`,
   browser: `<div class="browser" role="img" aria-label="Illustration of a business website on a laptop and phone">
-    <div class="bar"><i></i><i></i><i></i><span>yourbusiness.com</span></div>
+    <div class="bar"><span>yourbusiness.com</span></div>
     <div class="page"><b>Fresh bread, every morning.</b><span class="line"></span><span class="line short"></span><span class="pill">Book a table</span></div></div>`,
   receipt: `<div class="doc receipt" role="img" aria-label="Illustration of a sales report from a POS">
     <div class="doc-head"><b>Today's sales</b><em>Report</em></div>
@@ -77,7 +76,7 @@ export function renderService(s) {
   <div class="wrap">
     <div class="section-head"><p class="label">Is this for you?</p><h2>${esc(s.signsTitle)}</h2></div>
     <div class="signs">
-      ${s.signs.map((x) => `<div class="sign rv">${check}<p>${esc(x)}</p></div>`).join('\n      ')}
+      ${s.signs.map((x) => `<div class="sign rv"><p>${esc(x)}</p></div>`).join('\n      ')}
     </div>
   </div>
 </section>
