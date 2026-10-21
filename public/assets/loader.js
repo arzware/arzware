@@ -28,7 +28,7 @@
     else addEventListener('load', fonts, { once: true });
   });
 
-  document.addEventListener('DOMContentLoaded', function () {
+  function run() {
     var el = document.getElementById('azl');
     var finished = false;
     function cleanup() {
@@ -57,5 +57,8 @@
     Promise.all([introDone, pageReady]).then(finish);
     setTimeout(finish, MAX_MS);
     setTimeout(cleanup, MAX_MS + 1500);       // safety net
-  });
+  }
+  // Works even if the script was delayed past DOMContentLoaded (e.g. by Cloudflare Rocket Loader).
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else run();
 })();
