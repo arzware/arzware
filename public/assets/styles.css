@@ -790,6 +790,10 @@ a.post:hover { color: var(--ink); }
 .hero h1.slogan .cycle::after { height: .1em; bottom: -.04em; }
 @media (max-width: 600px) { .hero h1.slogan .hl { display: block; white-space: nowrap; } }
 @media (prefers-reduced-motion: reduce) { .cycle.cyc-in, .cycle.cyc-out { animation: none; transform: none; opacity: 1; } }
+.cta-actions { display: grid; gap: var(--s-3); justify-items: start; }
+.cta-band .cta-email { margin: 0; font-size: var(--t-small); color: var(--ink-2); }
+.cta-band .cta-email a { color: var(--ink); font-weight: 600; text-decoration-color: currentColor; }
+
 /* ---- Intro loader (home page; markup in src/partials/loader.html, logic in assets/loader.js) ----
    Plays once per visit, holds on the logo until the page has fully loaded, then reveals it.
    --azl-speed scales the whole timeline (1 = 1.5s, 0.67 = about 1s).
