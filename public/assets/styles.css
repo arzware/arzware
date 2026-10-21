@@ -774,4 +774,51 @@ a.post:hover { transform: translateY(-4px); color: var(--ink); }
 .cycle::after { content: ""; position: absolute; inset-inline: 0; bottom: .02em; height: .08em; border-radius: 4px; background: var(--saffron); transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease); }
 .cycle::after { transform: scaleX(1); }
 @media (prefers-reduced-motion: reduce) { .cycle.cyc-in, .cycle.cyc-out { animation: none; transform: none; opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { 
+/* ---- Intro loader (home page; markup in src/partials/loader.html, logic in assets/loader.js) ----
+   Plays once per visit, holds on the logo until the page has fully loaded, then reveals it.
+   --azl-speed scales the whole timeline (1 = 1.5s, 0.67 = about 1s).
+   --azl-bg should match your page background so the hand-off is seamless. */
+:root{--azl-bg:#ffffff;--azl-speed:1}
+.azl{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483600;display:flex;align-items:center;justify-content:center;background:var(--azl-bg)}
+.azl-logo{display:block;width:min(600px,82vw);height:auto;overflow:visible}
+/* Without JavaScript: the original fixed timeline (fades out after about 1.5s). */
+html:not(.js) .azl{animation:azl-out calc(var(--azl-speed,1)*300ms) cubic-bezier(.4,0,.2,1) calc(var(--azl-speed,1)*1200ms) both}
+html:not(.js) .azl-logo{animation:azl-lift calc(var(--azl-speed,1)*260ms) cubic-bezier(.4,0,.6,1) calc(var(--azl-speed,1)*1170ms) both}
+/* With JavaScript: loader.js adds .azl-done once the intro has played AND the page has fully loaded. */
+.azl.azl-done{animation:azl-out calc(var(--azl-speed,1)*300ms) cubic-bezier(.4,0,.2,1) both}
+.azl.azl-done .azl-logo{animation:azl-lift calc(var(--azl-speed,1)*260ms) cubic-bezier(.4,0,.6,1) both}
+html.azl-on{overflow:hidden}
+.azl-s{stroke-linecap:butt}
+.azl-t5{animation:azl-drib calc(var(--azl-speed,1)*470ms) cubic-bezier(.55,0,.15,1) calc(var(--azl-speed,1)*0ms) both}
+.azl-t6{animation:azl-drib calc(var(--azl-speed,1)*470ms) cubic-bezier(.55,0,.15,1) calc(var(--azl-speed,1)*30ms) both}
+.azl-t7{animation:azl-drib calc(var(--azl-speed,1)*470ms) cubic-bezier(.55,0,.15,1) calc(var(--azl-speed,1)*60ms) both}
+.azl-t1{animation:azl-darch calc(var(--azl-speed,1)*560ms) cubic-bezier(.4,0,.2,1) calc(var(--azl-speed,1)*110ms) both}
+.azl-t4{animation:azl-dcres calc(var(--azl-speed,1)*330ms) cubic-bezier(.5,0,.2,1) calc(var(--azl-speed,1)*250ms) both}
+.azl-t2{animation:azl-dband calc(var(--azl-speed,1)*300ms) cubic-bezier(.5,0,.2,1) calc(var(--azl-speed,1)*300ms) both}
+.azl-t3{animation:azl-dleg calc(var(--azl-speed,1)*260ms) cubic-bezier(.35,0,.25,1) calc(var(--azl-speed,1)*540ms) both}
+.azl-l{animation:azl-rise calc(var(--azl-speed,1)*360ms) cubic-bezier(.2,.8,.2,1) both}
+.azl-l1{animation-delay:calc(var(--azl-speed,1)*430ms)}
+.azl-l2{animation-delay:calc(var(--azl-speed,1)*464ms)}
+.azl-l3{animation-delay:calc(var(--azl-speed,1)*498ms)}
+.azl-l4{animation-delay:calc(var(--azl-speed,1)*532ms)}
+.azl-l5{animation-delay:calc(var(--azl-speed,1)*566ms)}
+.azl-l6{animation-delay:calc(var(--azl-speed,1)*600ms)}
+.azl-l7{animation-delay:calc(var(--azl-speed,1)*634ms)}
+.azl-spark{transform-box:fill-box;transform-origin:50% 50%;animation:azl-spark calc(var(--azl-speed,1)*420ms) cubic-bezier(.3,1.3,.5,1) calc(var(--azl-speed,1)*560ms) both}
+.azl-glow{transform-box:fill-box;transform-origin:50% 50%;animation:azl-glow calc(var(--azl-speed,1)*620ms) ease-out calc(var(--azl-speed,1)*580ms) both}
+.azl-tag{animation:azl-tag calc(var(--azl-speed,1)*320ms) cubic-bezier(.2,.8,.2,1) calc(var(--azl-speed,1)*720ms) both}
+.azl.azl-leave{animation:azl-leave calc(var(--azl-speed,1)*180ms) ease-out both}
+.azl-skip .azl{display:none}
+@media (prefers-reduced-motion:reduce){.azl{display:none}}
+@keyframes azl-drib{from{stroke-dashoffset:715.2}to{stroke-dashoffset:0}}
+@keyframes azl-darch{from{stroke-dashoffset:469.7}to{stroke-dashoffset:0}}
+@keyframes azl-dcres{from{stroke-dashoffset:351.2}to{stroke-dashoffset:0}}
+@keyframes azl-dband{from{stroke-dashoffset:214.7}to{stroke-dashoffset:0}}
+@keyframes azl-dleg{from{stroke-dashoffset:225.1}to{stroke-dashoffset:0}}
+@keyframes azl-rise{from{transform:translateY(140px)}to{transform:none}}
+@keyframes azl-spark{0%{opacity:0;transform:scale(0) rotate(-140deg)}60%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes azl-glow{0%{opacity:0;transform:scale(.2)}35%{opacity:1;transform:scale(1.5)}100%{opacity:1;transform:none}}
+@keyframes azl-tag{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes azl-lift{to{opacity:0;transform:translateY(-14px)}}
+@keyframes azl-out{to{opacity:0;visibility:hidden}}
+@keyframes azl-leave{to{opacity:0;visibility:hidden}}

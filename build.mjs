@@ -113,6 +113,8 @@ function emit(url, meta, body, pageJsonld = []) {
     .replace('{{footer}}', () => partial('footer'))
     .replace('{{content}}', () => rhythm(cards(expand(body))).trim())
     .replace('{{pagejsonld}}', () => extra)
+    .replace('{{pagehead}}', () => (meta.loader ? `<script src="/assets/loader.js?v=${VERSION}"></script>` : ''))
+    .replace('{{loader}}', () => (meta.loader ? partial('loader') : ''))
     .replace('{{pagescripts}}', () => (meta.scripts || []).map((src) => `<script src="${src}?v=${VERSION}" defer></script>`).join('\n'))
     .replace('{{jsonld}}', () => JSON.stringify(org))
     .replaceAll('{{logo}}', logo)
